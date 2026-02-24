@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & News - IPSM Little Wonders</title>
+    <meta name="description"
+        content="Stay updated with the latest news, events, and educational tips from IPSM Little Wonders Blog.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section"
+        th:style="'background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' + @{'/images/blog_image.png'} + '); background-size: cover; background-position: center;'">
+        <div class="container">
+            <h1>Our Blog &amp; News</h1>
+        </div>
+    </section>
+
+    <section class="blog-section">
+        <div class="section-header">
+            <span class="sub-title">Latest Updates</span>
+            <h2>News from <span class="highlight">Our School</span></h2>
+        </div>
+
+        <div class="blog-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+            <!-- Blog Card 1 -->
+            <div class="blog-card"
+                style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                <div class="blog-img"
+                    style="height: 250px; background: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                </div>
+                <div class="blog-content" style="padding: 25px;">
+                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;">Education | Jan 25,
+                        2026</span>
+                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;">The Importance of Play-Based Learning
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Discover why playing is essential for your
+                        child's brain development and social skills...</p>
+                    <a href="#" style="color: var(--primary); font-weight: 700;">Read More <i class="fas fa-arrow-right"
+                            style="margin-left: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- Blog Card 2 -->
+            <div class="blog-card"
+                style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                <div class="blog-img"
+                    style="height: 250px; background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                </div>
+                <div class="blog-content" style="padding: 25px;">
+                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;">Parenting | Jan 15,
+                        2026</span>
+                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;">Preparing Your Child for Preschool
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Tips and tricks for a smooth transition
+                        from home to school for your little one...</p>
+                    <a href="#" style="color: var(--primary); font-weight: 700;">Read More <i class="fas fa-arrow-right"
+                            style="margin-left: 5px;"></i></a>
+                </div>
+            </div>
+
+            <!-- Blog Card 3 -->
+            <div class="blog-card"
+                style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                <div class="blog-img"
+                    style="height: 250px; background: url('https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                </div>
+                <div class="blog-content" style="padding: 25px;">
+                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;">Events | Jan 05,
+                        2026</span>
+                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;">Grand Annual Sports Day Highlights
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">A celebration of spirit, coordination, and
+                        team effort by our little athletes...</p>
+                    <a href="#" style="color: var(--primary); font-weight: 700;">Read More <i class="fas fa-arrow-right"
+                            style="margin-left: 5px;"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{index :: footer}"></footer>
+
+    <script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

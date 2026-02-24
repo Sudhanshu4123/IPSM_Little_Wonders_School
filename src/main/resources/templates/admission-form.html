@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <!-- Flatpickr CSS for better Calendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="admission-form-header">
+        <div class="container">
+            <h1>Admission Form</h1>
+        </div>
+    </section>
+
+    <section class="admission-form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header-flex">
+                    <img th:src="@{/images/ipsm_pre_logo.png}" alt="IPSM Little Wonders Logo"
+                        style="height: 100px; margin-bottom: 15px;">
+                    <h2 class="form-title">Apply For Admission</h2>
+                </div>
+
+                <form action="/admission/apply" method="post" enctype="multipart/form-data"
+                    class="admission-application-form" id="admission-form">
+                    <div class="form-sections-grid">
+                        <!-- Child Info Section -->
+                        <div class="form-section">
+                            <h3 class="section-heading">Child Info</h3>
+
+                            <div class="form-group">
+                                <label for="programApplied">Program Applied For <span class="required">*</span></label>
+                                <select id="programApplied" name="programApplied" required>
+                                    <option value="">Select Program</option>
+                                    <option value="Toddlers">Toddlers</option>
+                                    <option value="Pre-Nursery">Pre-Nursery</option>
+                                    <option value="Nursery">Nursery</option>
+                                    <option value="Prep">Prep</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstName">First Name <span class="required">*</span></label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Enter First Name"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName">Last Name <span class="required">*</span></label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nickName">Nick Name </label>
+                                <input type="text" id="nickName" name="nickName" placeholder="Enter Nick Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bloodGroup">Blood Group</label>
+                                <select id="bloodGroup" name="bloodGroup">
+                                    <option value="">Select Blood Group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="position: relative;">
+                                <label for="dob">Date of Birth (DOB) <span class="required">*</span></label>
+                                <div style="position: relative;">
+                                    <input type="text" id="dob" name="dob" placeholder="Select Date of Birth" required
+                                        style="padding-right: 40px;">
+                                    <i class="fas fa-calendar-alt"
+                                        style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #7d266e; pointer-events: none;"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="age">Age <span class="required">*</span></label>
+                                <input type="number" id="age" name="age" placeholder="Age will be calculated" readonly
+                                    style="background-color: #f1f1f1; cursor: not-allowed;" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender">Gender <span class="required">*</span></label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="numBrothers">Number of Brothers</label>
+                                <input type="number" id="numBrothers" name="numBrothers"
+                                    placeholder="Enter Number of Brothers" min="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="numSisters">Number of Sisters</label>
+                                <input type="number" id="numSisters" name="numSisters"
+                                    placeholder="Enter Number of Sisters" min="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="childPhoto">Child's Photo <span class="required">*</span></label>
+                                <input type="file" id="childPhoto" name="childPhoto" accept="image/*" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="birthCertificate">Birth Certificate <span class="required">*</span></label>
+                                <input type="file" id="birthCertificate" name="birthCertificate" accept=".pdf,image/*"
+                                    required>
+                            </div>
+
+                        </div>
+
+                        <!-- Parents Info Section -->
+                        <div class="form-section">
+                            <h3 class="section-heading">Parents Info</h3>
+
+                            <div class="form-group">
+                                <label for="fatherName">Father Name <span class="required">*</span></label>
+                                <input type="text" id="fatherName" name="fatherName" placeholder="Enter Father Name"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherName">Mother Name <span class="required">*</span></label>
+                                <input type="text" id="motherName" name="motherName" placeholder="Enter Mother Name"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fatherPhone">Father's Phone Number<span class="required">*</span></label>
+                                <input type="tel" id="fatherPhone" name="fatherPhone" placeholder="Enter Father's Phone"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherPhone">Mother's Phone Number<span class="required">*</span></label>
+                                <input type="tel" id="motherPhone" name="motherPhone" placeholder="Enter Mother's Phone"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="alternatePhone">Alternate Number</label>
+                                <input type="tel" id="alternatePhone" name="alternatePhone"
+                                    placeholder="Enter Alternate Number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Enter Email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fatherOccupation">Father's Occupation <span
+                                        class="required">*</span></label>
+                                <input type="text" id="fatherOccupation" name="fatherOccupation"
+                                    placeholder="Enter Father's Occupation" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherOccupation">Mother's Occupation <span
+                                        class="required">*</span></label>
+                                <input type="text" id="motherOccupation" name="motherOccupation"
+                                    placeholder="Enter Mother's Occupation" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="address">Full Residential Address <span class="required">*</span></label>
+                                <textarea id="address" name="address" placeholder="Enter Full Address" required
+                                    style="width: 100%; padding: 12px; border: 1.5px solid #7d266e; border-radius: 12px; font-family: inherit;"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="totalChildren">Total Number of Children <span
+                                        class="required">*</span></label>
+                                <input type="number" id="totalChildren" name="totalChildren"
+                                    placeholder="Enter Total Number of Children" min="1" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Category <span class="required">*</span></label>
+                                <select id="category" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="general">General</option>
+                                    <option value="ews">EWS</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="parentPhoto">Parent's Photo <span class="required">*</span></label>
+                                <input type="file" id="parentPhoto" name="parentPhoto" accept="image/*" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aadharCard">Aadhar Card <span class="required">*</span></label>
+                                <input type="file" id="aadharCard" name="aadharCard" accept=".pdf,image/*" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="panCard">PAN Card <span class="required">*</span></label>
+                                <input type="file" id="panCard" name="panCard" accept=".pdf,image/*" required>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-footer">
+                        <p class="required-note"><span class="required">*</span> Indicates required fields.</p>
+                        <div id="formMessage"
+                            style="margin-bottom: 20px; text-align: center; display: none; font-weight: 600;"></div>
+                        <div class="form-actions">
+                            <button type="button" class="download-form-btn" id="download-pdf-btn">
+                                <i class="fas fa-file-download"></i> Download Form
+                            </button>
+                            <button type="submit" class="submit-btn" id="submitBtn">Submit Now <i
+                                    class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+
+    <script th:src="@{/js/main.js}"></script>
+    <script>
+        // Handle admission form submission
+        document.getElementById('admission-form')?.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('formMessage');
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+            fetch('/admission/apply', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    messageDiv.style.display = 'block';
+                    if (data.status === 'success') {
+                        messageDiv.style.color = '#28a745';
+                        messageDiv.textContent = data.message;
+                        this.reset();
+                        document.getElementById('age').value = '';
+                    } else {
+                        messageDiv.style.color = '#dc3545';
+                        messageDiv.textContent = data.message;
+                    }
+                })
+                .catch(error => {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#dc3545';
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Submit Now <i class="fas fa-arrow-right"></i>';
+                });
+        });
+        flatpickr("#dob", {
+            dateFormat: "d-m-Y",
+            maxDate: "today",
+            defaultDate: "01-01-2020",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            monthSelectorType: "dropdown",
+            static: false,
+            onChange: function (selectedDates, dateStr, instance) {
+                if (selectedDates.length > 0) {
+                    const birthDate = selectedDates[0];
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const m = today.getMonth() - birthDate.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    document.getElementById('age').value = age;
+                }
+            },
+            onReady: function (selectedDates, dateStr, instance) {
+                const calendar = instance.calendarContainer;
+                calendar.style.boxShadow = "0 15px 35px rgba(125, 38, 110, 0.25)";
+                calendar.style.border = "2px solid #7d266e";
+                calendar.style.borderRadius = "15px";
+                calendar.style.background = "#fff";
+
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    .flatpickr-day.selected { background: #7d266e !important; border-color: #7d266e !important; }
+                    .flatpickr-day:hover { background: #ffe66d !important; color: #4a0b3e !important; }
+                    .flatpickr-months .flatpickr-month { background: #7d266e !important; color: #fff !important; fill: #fff !important; border-radius: 12px 12px 0 0; }
+                    .flatpickr-current-month .flatpickr-monthDropdown-months { background: #7d266e !important; color: #fff !important; }
+                    .flatpickr-weekday { color: #7d266e !important; font-weight: bold !important; }
+                    .flatpickr-calendar.arrowTop:before, .flatpickr-calendar.arrowTop:after { border-bottom-color: #7d266e !important; }
+                `;
+                document.head.appendChild(style);
+            }
+        });
+    </script>
+</body>
+
+</html>

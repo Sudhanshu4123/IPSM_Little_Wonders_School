@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speciality - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section"
+        th:style="'background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' + @{'/images/uniquefeature_image.jpeg'} + '); background-size: cover; background-position: center;'">
+        <div class="container">
+            <h1>Speciality</h1>
+        </div>
+    </section>
+
+    <section class="unique-features-section">
+        <div class="container">
+            <div class="methodology-content-section" style="padding: 0;">
+                <div class="emphasis-section">
+                    <h3>IPSM LITTLE WONDERS SPECIALITY :</h3>
+                    <ul class="emphasis-list">
+                        <li><i class="fas fa-check-circle"></i> Best methodology as per your children’s development.
+                        </li>
+                        <li><i class="fas fa-check-circle"></i> Well-equipped play zone.</li>
+                        <li><i class="fas fa-check-circle"></i> Health and hygienic environment.</li>
+                        <li><i class="fas fa-check-circle"></i> Round-the-clock security with CCTV Surveillance and
+                            access
+                            to parents.</li>
+                        <li><i class="fas fa-check-circle"></i> All Female staff, including teachers and support staff.
+                        </li>
+                        <li><i class="fas fa-check-circle"></i> Pick-up and Drop transport facility.</li>
+                        <li><i class="fas fa-check-circle"></i> A hygienic and freshly prepared meal.</li>
+                        <li><i class="fas fa-check-circle"></i> Spread over more than 9000 square feet of land.</li>
+                        <li><i class="fas fa-check-circle"></i> Actively centre-stimulated learning atmosphere.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

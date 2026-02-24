@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursery Program | Best Preschool Goyla Dairy - IPSM Little Wonders</title>
+    <meta name="description"
+        content="Our Nursery program at IPSM Little Wonders, Goyla Dairy, provides a structured and playful learning environment for your child's early education. Enroll now!">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+    <style>
+        .page-header {
+            height: auto;
+            background: url('/images/nursuring.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+            position: relative;
+        }
+
+        .header-description {
+            background: rgba(74, 11, 62, 0.75);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 600px;
+            border: 2px solid var(--accent);
+        }
+
+        .header-description p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent) !important;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .page-header h1 {
+            font-size: 5.5rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .breadcrumbs {
+            font-size: 1.1rem;
+        }
+
+        .breadcrumbs a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumbs span {
+            color: var(--accent);
+            margin-left: 5px;
+        }
+
+        .program-detail-section {
+            padding: 80px 5%;
+            background: #f2f7fd;
+        }
+
+        .detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .detail-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-text h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .detail-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #b71677;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .features-list li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-header"
+        th:style="'background-image: url(' + @{/images/nursuring.png} + '); background-size: cover; background-position: center;'">
+        <h1>Nursery</h1>
+        <div class="header-description">
+            <p>Nursery curriculum and activities is designed for the age group of 3.5 years to 4.5 years.</p>
+        </div>
+    </section>
+
+    <section class="program-detail-section">
+        <div class="detail-container">
+            <div class="detail-image">
+                <img th:src="@{/images/nusery_little.jpeg}" alt="Nursery">
+            </div>
+            <div class="detail-text">
+                <!-- <h2>Foundation for Success</h2> -->
+                <p>At this stage of learning, the child builds a strong foundation of Number
+                    concepts and confidently applies basic addition & subtraction. Also identifies
+                    shapes and patterns and demonstrates logical thinking during problem-solving
+                    activities. The child learns to interact well socially and participate actively
+                    in expressing his/her ideas with confidence.
+                </p>
+
+                <!-- <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> English & Hindi alphabet writing</li>
+                    <li><i class="fas fa-check-circle"></i> Number system & basic math concepts</li>
+                    <li><i class="fas fa-check-circle"></i> Environment awareness (EVS)</li>
+                    <li><i class="fas fa-check-circle"></i> Public speaking & confidence building</li>
+                </ul> -->
+
+                <a th:href="@{/admission-form}" class="btn btn-primary">Apply for Admission</a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

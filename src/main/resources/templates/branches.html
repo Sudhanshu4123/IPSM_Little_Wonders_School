@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Branches - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section">
+        <div class="container">
+            <h1>Our Branches</h1>
+        </div>
+    </section>
+
+    <section class="branches-section" style="padding: 80px 0; background: #fff;">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+                <span class="sub-title">LOCATIONS</span>
+                <h2>Find a <span class="highlight">Branch</span> Near You</h2>
+                <p style="max-width: 700px; margin: 20px auto; color: #666; font-size: 1.1rem;">
+                    We are expanding! Currently serving with our flagship branch and coming soon to new locations.
+                </p>
+            </div>
+
+            <div class="branches-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+                <!-- Main Branch -->
+                <div class="branch-card"
+                    style="background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; transition: transform 0.3s ease;">
+                    <div class="branch-image"
+                        style="height: 200px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;">
+                        <i class="fas fa-school" style="font-size: 5rem; opacity: 0.3;"></i>
+                    </div>
+                    <div class="branch-info" style="padding: 30px;">
+                        <h3 style="color: #b71677; margin-bottom: 15px; font-size: 1.5rem;">Goyla Dairy Branch (Main)
+                        </h3>
+                        <p style="margin-bottom: 10px; color: #555;"><i class="fas fa-map-marker-alt"
+                                style="color: var(--primary); margin-right: 10px;"></i> Goyla Dairy (Goladeri), New
+                            Delhi</p>
+                        <p style="margin-bottom: 10px; color: #555;"><i class="fas fa-phone"
+                                style="color: var(--primary); margin-right: 10px;"></i> +91 76783 77155</p>
+                        <p style="margin-bottom: 20px; color: #555;"><i class="fas fa-envelope"
+                                style="color: var(--primary); margin-right: 10px;"></i> ipsmlittlewonder@gmail.com</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-primary"
+                            style="width: 100%; border-radius: 10px;">View on Map</a>
+                    </div>
+                </div>
+
+                <!-- Placeholder for Coming Soon -->
+                <div class="branch-card coming-soon"
+                    style="background: #f9f9f9; border-radius: 20px; overflow: hidden; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; min-height: 400px; text-align: center; padding: 30px;">
+                    <div>
+                        <i class="fas fa-building-circle-arrow-right"
+                            style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+                        <h3 style="color: #999;">New Branch<br>Coming Soon!</h3>
+                        <p style="color: #aaa; margin-top: 10px;">We are identifying more locations to serve you better.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

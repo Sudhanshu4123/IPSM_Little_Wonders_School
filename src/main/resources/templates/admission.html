@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Criteria - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="admission-criteria-header">
+        <div class="container">
+            <h1>Admission Criteria</h1>
+        </div>
+    </section>
+
+    <section class="admission-procedure-section">
+        <div class="container">
+            <div class="admission-header">
+                <h2>Admission <span class="highlight-pink">Procedure</span></h2>
+            </div>
+
+            <div class="admission-table-wrapper">
+                <table class="admission-table">
+                    <thead>
+                        <tr>
+                            <th>Age Criteria</th>
+                            <th>Admission Criteria for the Program</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Age Criteria:</strong></td>
+                            <td>
+                                <p>Toddler - 1.5 years and above on 31st March of current year</p>
+                                <p>Pre Nursery - 2.5 years and above on 31st March of current year</p>
+                                <p>Nursery - 3.5 years and above on 31st March of current year</p>
+                                <p>Prep - 4.5 years and above on 31st March of current year</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admission-table-wrapper">
+                <table class="admission-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 35%;"><strong>Registration of a 1st Time (only) at</strong></td>
+                            <td><strong>School admission days</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Document required at the time of process</strong></td>
+                            <td>
+                                <p>Copy of Birth Certificate</p>
+                                <p>Copy of Aadhaar Card (both of the child)</p>
+                                <p>4 passport size photograph of the child</p>
+                                <p>Address Proof – (Voter Id card/Aadhaar Card of Father)</p>
+                                <p>Current Phone – Most Significant Documents (UPFILED 25% Policy setting@ipsmlw.co.in)
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admission-contact-info">
+                <p>For the best benefits of early, regular learn and understand admission procedure for admissions.</p>
+                <p><strong>Contact Detail:</strong> Call: +91 – 7678377155</p>
+                <p><strong>Email ID:</strong> <a href="mailto:ipsmlittlewonders.com">ipsmlittlewonders.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

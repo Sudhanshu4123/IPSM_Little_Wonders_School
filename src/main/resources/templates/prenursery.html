@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursery Program | Best Nursery School in Goyla Dairy - IPSM Little Wonders</title>
+    <meta name="description"
+        content="Enroll your child in the best Nursery program at IPSM Little Wonders, Goyla Dairy. We focus on social, emotional, and cognitive development in a fun and engaging way.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+    <style>
+        .page-header {
+            height: auto;
+            background: url('/images/pre_nursery.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+            position: relative;
+        }
+
+        .header-description {
+            background: rgba(74, 11, 62, 0.75);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 600px;
+            border: 2px solid var(--accent);
+        }
+
+        .header-description p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent) !important;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .page-header h1 {
+            font-size: 5.5rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .breadcrumbs {
+            font-size: 1.1rem;
+        }
+
+        .breadcrumbs a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumbs span {
+            color: var(--accent);
+            margin-left: 5px;
+        }
+
+        .program-detail-section {
+            padding: 80px 5%;
+            background: #f4faf2;
+        }
+
+        .detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .detail-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-text h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .detail-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #b71677;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .features-list li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-header"
+        th:style="'background-image: url(' + @{/images/pre_nursery.png} + '); background-size: cover; background-position: center;'">
+        <h1>Pre-Nursery</h1>
+        <div class="header-description">
+            <p>Pre-Nursery curriculum and activities is designed for the age group of 2.5 years to 3.5 years.</p>
+        </div>
+    </section>
+
+    <section class="program-detail-section">
+        <div class="detail-container">
+            <div class="detail-image">
+                <img th:src="@{/images/pre_nursery_little.jpeg}" alt="Pre-Nursery">
+            </div>
+            <div class="detail-text">
+                <!-- <h2>A Step Towards Serious Learning</h2> -->
+                <p>At this stage, the child is more curious about his/her environment, asks many questions,
+                    and cleardoubts. We try to develop concepts building, analytical thinking,word boosting,
+                    and writing skills.
+                </p>
+
+                <!-- <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Social skills development</li>
+                    <li><i class="fas fa-check-circle"></i> Introduction to basic shapes & colors</li>
+                    <li><i class="fas fa-check-circle"></i> Creative arithmetic & counting</li>
+                    <li><i class="fas fa-check-circle"></i> Interaction with peers & group tasks</li>
+                </ul> -->
+
+                <a th:href="@{/admission-form}" class="btn btn-primary">Apply for Admission</a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

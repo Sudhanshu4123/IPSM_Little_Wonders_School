@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrations - IPSM Little Wonders</title>
+    <meta name="description" content="Explore the vibrant celebrations and festive events at IPSM Little Wonders.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .page-title-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+        }
+
+        .celebration-card img {
+            transition: transform 0.5s ease;
+        }
+
+        .celebration-card:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section"
+        th:style="'background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' + @{'/images/celebration_image.jpeg'} + '); background-size: cover; background-position: center;'">
+        <div class="container">
+            <h1>Our Celebrations</h1>
+        </div>
+    </section>
+
+    <section class="celebrations-section">
+        <div class="section-header">
+            <span class="sub-title">Festivities</span>
+            <h2>Vibrant <span class="highlight">Moments</span></h2>
+        </div>
+
+        <div class="celebrations-grid"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+            <!-- Celebration 1 -->
+            <div class="celebration-card"
+                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=800&auto=format&fit=crop"
+                    alt="Diwali" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="celebration-overlay"
+                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Diwali Celebration</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Festival of Lights with Little Wonders</p>
+                </div>
+            </div>
+
+            <!-- Celebration 2 -->
+            <div class="celebration-card"
+                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1543589077-47d816067938?q=80&w=800&auto=format&fit=crop"
+                    alt="Christmas" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="celebration-overlay"
+                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Christmas Carnival</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Joyful carols and Santa's visit</p>
+                </div>
+            </div>
+
+            <!-- Celebration 3 -->
+            <div class="celebration-card"
+                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1540324155974-7523202daa3f?q=80&w=800&auto=format&fit=crop"
+                    alt="Holi" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="celebration-overlay"
+                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Holi Hai!</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Colors of joy and friendship</p>
+                </div>
+            </div>
+
+            <!-- Celebration 4 -->
+            <div class="celebration-card"
+                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop"
+                    alt="Annual Day" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="celebration-overlay"
+                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Annual Day</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Showcasing talents of our little stars</p>
+                </div>
+            </div>
+
+            <!-- Celebration 5 -->
+            <div class="celebration-card"
+                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?q=80&w=800&auto=format&fit=crop"
+                    alt="Birthday" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="celebration-overlay"
+                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Monthly Birthdays</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Adding more years of happiness</p>
+                </div>
+            </div>
+
+            <!-- Celebration 6 -->
+            <div class="celebration-card"
+                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800&auto=format&fit=crop"
+                    alt="Grandparents Day" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="celebration-overlay"
+                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Grandparents Day</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Honoring our roots and wisdom</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:replace="~{index :: footer}"></footer>
+
+    <script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>

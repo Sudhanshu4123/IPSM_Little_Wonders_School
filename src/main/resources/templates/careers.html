@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+    <style>
+        .application-form-section {
+            padding: 80px 5%;
+            background: #fdf7f2;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(183, 22, 119, 0.1);
+        }
+
+        .career-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #b71677;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #b71677;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            background: #fff5f9;
+            border: 2px dashed #ffc1e3;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-wrapper:hover {
+            background: #ffecf5;
+            border-color: #b71677;
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-wrapper i {
+            display: block;
+            font-size: 1.5rem;
+            color: #b71677;
+            margin-bottom: 10px;
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+            background: #b71677;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            background: #d81b60;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .career-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .submit-btn {
+                grid-column: span 1;
+            }
+        }
+
+        .career-content-section {
+            padding: 80px 5%;
+            text-align: center;
+            background: #fff;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .career-content-section i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .career-content-section h2 {
+            font-size: 2.8rem;
+            color: #b71677;
+            margin-bottom: 30px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .career-text {
+            font-size: 1.25rem;
+            color: #444;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .career-text p {
+            margin-bottom: 20px;
+        }
+
+        .career-highlight {
+            color: #b71677;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section"
+        th:style="'background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' + @{'/images/career_image.jpeg'} + '); background-size: cover; background-position: center;'">
+        <div class="container">
+            <h1>Careers</h1>
+        </div>
+    </section>
+
+    <section class="career-content-section" style="padding-bottom: 40px;">
+        <i class="fas fa-heart"></i>
+        <h2>Join Our Family</h2>
+        <div class="career-text">
+            <p>At our play school, we don’t just hire staff but we welcome family.
+                We are looking for kind-hearted, energetic, and creative individuals who truly enjoy spending time with
+                little ones and helping them learn through love, laughter, and play.</p>
+
+            <p>If you believe that every child deserves patience, encouragement, and a happy learning environment,
+                you’ll feel right at home with us.</p>
+
+            <p>Here, your ideas matter, your efforts are appreciated, and your growth is important. Together, let’s
+                create beautiful childhood memories for our little wonders.</p>
+        </div>
+    </section>
+
+    <section class="application-form-section">
+        <div class="form-container">
+            <form action="/career/apply" method="POST" enctype="multipart/form-data" class="career-form"
+                id="careerForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="position">Position Applied For</label>
+                    <select id="position" name="position" required>
+                        <option value="" disabled selected>Select a position</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Assistant Teacher">Assistant Teacher</option>
+                        <option value="Activity Coordinator">Activity Coordinator</option>
+                        <option value="Support Staff">Support Staff</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload CV (PDF/Doc)</label>
+                    <div class="file-upload-wrapper">
+                        <i class="fas fa-file-pdf"></i>
+                        <span id="cvFileName">Click to upload CV</span>
+                        <input type="file" name="cv" accept=".pdf,.doc,.docx" required
+                            onchange="document.getElementById('cvFileName').textContent = this.files[0].name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Photo</label>
+                    <div class="file-upload-wrapper">
+                        <i class="fas fa-camera"></i>
+                        <span id="photoFileName">Click to upload Photo</span>
+                        <input type="file" name="photo" accept="image/*" required
+                            onchange="document.getElementById('photoFileName').textContent = this.files[0].name">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
+                <div id="formMessage"
+                    style="grid-column: span 2; margin-top: 15px; text-align: center; display: none; font-weight: 600;">
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+    <script th:src="@{/js/main.js}"></script>
+    <script>
+        document.getElementById('careerForm')?.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('formMessage');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            fetch('/career/apply', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    messageDiv.style.display = 'block';
+                    if (data.status === 'success') {
+                        messageDiv.style.color = '#28a745';
+                        messageDiv.textContent = data.message;
+                        this.reset();
+                        document.getElementById('cvFileName').textContent = 'Click to upload CV';
+                        document.getElementById('photoFileName').textContent = 'Click to upload Photo';
+                    } else {
+                        messageDiv.style.color = '#dc3545';
+                        messageDiv.textContent = data.message;
+                    }
+                })
+                .catch(error => {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#dc3545';
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Application';
+                });
+        });
+    </script>
+</body>
+
+</html>

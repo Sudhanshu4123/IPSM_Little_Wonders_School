@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPSM Little Wonders - Best Preschool in Goyla Dairy, New Delhi</title>
+    <meta name="description"
+        content="IPSM Little Wonders - The best preschool in Goyla Dairy, New Delhi. We provide a nurturing, safe, and fun environment for toddlers, pre-nursery, and nursery children. Enroll now for holistic development!">
+    <meta name="keywords"
+        content="Preschool Goyla Dairy, Best Play School New Delhi, IPSM Little Wonders, Nursery Admission Goyla Dairy, Pre-primary School New Delhi, Toddler Program Goyla Dairy">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ipsmlittlewonders.com/">
+    <meta property="og:title" content="IPSM Little Wonders - Best Preschool in Goyla Dairy, New Delhi">
+    <meta property="og:description"
+        content="Experience premium preschool services at IPSM Little Wonders. Nurturing, safe, and fun environment for your child's holistic development.">
+    <meta property="og:image" th:content="@{/images/ipsm_pre_logo.png}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ipsmlittlewonders.com/">
+    <meta property="twitter:title" content="IPSM Little Wonders - Best Preschool in Goyla Dairy, New Delhi">
+    <meta property="twitter:description"
+        content="Experience premium preschool services at IPSM Little Wonders. Nurturing, safe, and fun environment for your child's holistic development.">
+    <meta property="twitter:image" th:content="@{/images/ipsm_pre_logo.png}">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+
+    <!-- Structured Data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "School",
+      "name": "IPSM Little Wonders Preschool",
+      "url": "https://ipsmlittlewonders.com/",
+      "logo": "https://ipsmlittlewonders.com/images/ipsm_pre_logo.png",
+      "image": "https://ipsmlittlewonders.com/images/home_page_scroll1.png",
+      "description": "The best preschool in Goyla Dairy, New Delhi, offering Nursery, Pre-Nursery, and Toddler programs.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Goyla Dairy",
+        "addressLocality": "New Delhi",
+        "addressRegion": "Delhi",
+        "postalCode": "110071",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 28.5855,
+        "longitude": 76.9922
+      },
+      "telephone": "+917678377155",
+      "openingHours": "Mo-Sa 09:00-16:00",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+917678377155",
+        "contactType": "Admissions"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <th:block th:fragment="header">
+        <!-- Preloader -->
+        <div class="loader-wrapper">
+            <div class="loader">
+                <div class="loader-inner"></div>
+                <div class="loader-inner"></div>
+                <div class="loader-inner"></div>
+            </div>
+        </div>
+
+        <div class="announcement-bar">
+            <div class="marquee">
+                ADMISSION OPEN - CONTACT: +91 76783 77155, EMAIL: ipsmlittlewonders@gmail.com, Working Hours:
+                9:00AM -
+                4:00PM
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <a th:href="@{/}">
+                        <img th:src="@{/images/ipsm_pre_logo.png}" alt="IPSM Little Wonders">
+                    </a>
+                </div>
+
+                <div class="logo-text-branding">
+                    <h1 class="brand-title">
+                        <span class="ipsm">IPSM Little Wonders</span>
+                    </h1>
+                    <div class="brand-subtitle">(Pre-School)</div>
+                    <div class="brand-tagline">Nurturing The Little Minds</div>
+                </div>
+
+                <div class="header-cartoon">
+                    <img th:src="@{/images/home_page_cartoon.png}" alt="IPSM Little Wonders Cartoon">
+                </div>
+
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a th:href="@{/}">Home</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)">About Us <i class="fas fa-chevron-down"
+                                style="font-size: 0.8rem;"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/about}"><i class="far fa-dot-circle"></i> Our School</a></li>
+                            <li><a th:href="@{/mission}"><i class="far fa-dot-circle"></i> Mission & Vision</a></li>
+                            <li><a th:href="@{/methodology}"><i class="far fa-dot-circle"></i> Methodology</a></li>
+                            <li><a th:href="@{/facilities}"><i class="far fa-dot-circle"></i> Facilities</a></li>
+                            <li><a th:href="@{/speciality}"><i class="far fa-dot-circle"></i> Speciality</a>
+                            </li>
+                            <li><a th:href="@{/celebrations}"><i class="far fa-dot-circle"></i> Celebrations</a></li>
+                            <li><a th:href="@{/holidays}"><i class="far fa-dot-circle"></i> Holiday List</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)">Programs <i class="fas fa-chevron-down"
+                                style="font-size: 0.8rem;"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/toddler}"><i class="far fa-dot-circle"></i> Toddlers</a></li>
+                            <li><a th:href="@{/pre-nursery}"><i class="far fa-dot-circle"></i> Pre-Nursery</a></li>
+                            <li><a th:href="@{/nursery}"><i class="far fa-dot-circle"></i> Nursery</a></li>
+                            <li><a th:href="@{/prep}"><i class="far fa-dot-circle"></i> Prep</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:void(0)">Admission <i class="fas fa-chevron-down"
+                                style="font-size: 0.8rem;"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/admission}"><i class="far fa-dot-circle"></i> Admission Criteria</a></li>
+                            <li><a th:href="@{/admission-form}"><i class="far fa-dot-circle"></i> Admission Form</a>
+                            </li>
+                            <li><a th:href="@{/admission-faq}"><i class="far fa-dot-circle"></i> Admission FAQ's</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/gallery}">Gallery</a></li>
+                    <li><a th:href="@{/branches}">Branches</a></li>
+                    <li><a th:href="@{/franchise}">Franchise</a></li>
+                    <li><a th:href="@{/blog}">Blog</a></li>
+                    <li><a th:href="@{/contact}">Contact</a></li>
+                    <li><a th:href="@{/careers}">Careers</a></li>
+                    <li class="nav-enroll"><a th:href="@{/admission-form}" class="btn btn-primary btn-red">Enroll
+                            Now</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </th:block>
+
+    <!-- Hero Section -->
+    <section class="hero" style="overflow: hidden; position: relative;">
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="slide-item" th:style="'background-image: url(' + @{/images/home_page_scroll1.png} + ');'">
+                <div class="hero-content animate-up">
+                    <h1 class="hero-main-title">Nurturing The Little Minds</h1>
+                    <p class="hero-main-p">Nurturing The Little Minds Of Your Child With Safe And Caring Enviroment.
+                        Your Child Can Grow Learn And Play Joufully.</p>
+                    <div class="hero-actions-row">
+                        <div class="hero-social-icons">
+                            <a href="https://wa.me/message/3IXGTPS6JT6KM1" target="_blank"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="https://facebook.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://instagram.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="tel:+917678377155"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:ipsmlittlewonders@gmail.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                        <div class="hero-btns-new">
+                            <a th:href="@{/admission-form}" class="btn-pill-enroll">
+                                Enroll Now <span class="arrow-circle"><i class="fas fa-angles-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide-item" th:style="'background-image: url(' + @{/images/home_page_scroll2.png} + ');'">
+                <div class="hero-content animate-up">
+                    <h1 class="hero-main-title">Best Pre School<br>For Your Child</h1>
+                    <!-- <p class="hero-main-p">We provide the best foundation for your child's early education years.</p> -->
+                    <div class="hero-actions-row">
+                        <div class="hero-social-icons">
+                            <a href="https://wa.me/message/3IXGTPS6JT6KM1" target="_blank"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="https://facebook.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://instagram.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="tel:+917678377155"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:ipsmlittlewonders@gmail.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                        <div class="hero-btns-new">
+                            <a th:href="@{/admission-form}" class="btn-pill-enroll">
+                                Enroll Now <span class="arrow-circle"><i class="fas fa-angles-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide-item" th:style="'background-image: url(' + @{/images/home_page_scroll3.png} + ');'">
+                <div class="hero-content animate-up">
+                    <h1 class="hero-main-title">Your Child's Growth<br>Our Committment</h1>
+                    <!-- <p class="hero-main-p">Committed to nurturing and developing every child's unique potential.</p> -->
+                    <div class="hero-actions-row">
+                        <div class="hero-social-icons">
+                            <a href="https://wa.me/message/3IXGTPS6JT6KM1" target="_blank"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="https://facebook.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://instagram.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="tel:+917678377155"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:ipsmlittlewonders@gmail.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                        <div class="hero-btns-new">
+                            <a th:href="@{/admission-form}" class="btn-pill-enroll">
+                                Enroll Now <span class="arrow-circle"><i class="fas fa-angles-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide-item" th:style="'background-image: url(' + @{/images/home_page_scroll4.png} + ');'">
+                <div class="hero-content animate-up">
+                    <h1 class="hero-main-title">Learn With Fun At<br>IPSM Little Wonders</h1>
+                    <div class="admission-badge">Admission Open</div>
+                    <!-- <p class="hero-main-p">Making learning an enjoyable and memorable adventure for every little
+                        miracle.</p> -->
+                    <div class="hero-actions-row">
+                        <div class="hero-social-icons">
+                            <a href="https://wa.me/message/3IXGTPS6JT6KM1" target="_blank"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="https://facebook.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://instagram.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="tel:+917678377155"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:ipsmlittlewonders@gmail.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                        <div class="hero-btns-new">
+                            <a th:href="@{/admission-form}" class="btn-pill-enroll">
+                                Enroll Now <span class="arrow-circle"><i class="fas fa-angles-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Clone of Slide 1 for seamless loop -->
+            <div class="slide-item" th:style="'background-image: url(' + @{/images/home_page_scroll1.png} + ');'">
+                <div class="hero-content animate-up">
+                    <h1 class="hero-main-title">Nurturing The Little Minds</h1>
+                    <p class="hero-main-p">Nurturing The Little Minds of Your Child With Safe And Caring Enviroment.
+                        Your Child Can Grow Learn And Play Joufully.</p>
+                    <div class="hero-actions-row">
+                        <div class="hero-social-icons">
+                            <a href="https://wa.me/message/3IXGTPS6JT6KM1" target="_blank"><i
+                                    class="fab fa-whatsapp"></i></a>
+                            <a href="https://facebook.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://instagram.com/ipsmlittlewonders" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="tel:+917678377155"><i class="fas fa-phone"></i></a>
+                            <a href="mailto:ipsmlittlewonders@gmail.com"><i class="fas fa-envelope"></i></a>
+                        </div>
+                        <div class="hero-btns-new">
+                            <a th:href="@{/admission-form}" class="btn-pill-enroll">
+                                Enroll Now <span class="arrow-circle"><i class="fas fa-angles-right"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-grid">
+        <div class="feature-card animate-up" style="animation-delay: 0.1s;">
+            <i class="fas fa-brain"></i>
+            <h3>Active Learning</h3>
+            <p>Engaging space where children discover and build creativity.</p>
+        </div>
+        <div class="feature-card animate-up" style="animation-delay: 0.2s;">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Safe Environment</h3>
+            <p>Nurturing and secure space for children to thrive joyfully.</p>
+        </div>
+        <div class="feature-card animate-up" style="animation-delay: 0.3s;">
+            <i class="fas fa-tools"></i>
+            <h3>Fully Equipped</h3>
+            <p>Modern tools to support learning and holistic development.</p>
+        </div>
+        <div class="feature-card animate-up" style="animation-delay: 0.4s;">
+            <i class="fas fa-tags"></i>
+            <h3>Affordable Pricing</h3>
+            <p>High-quality programs accessible to all families.</p>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="about">
+        <div class="about-container">
+            <div class="about-img">
+                <img src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1000&auto=format&fit=crop"
+                    alt="Children Drawing Cartoon Style">
+            </div>
+            <div class="about-content">
+                <div class="section-title" style="text-align: left;">
+                    <h2>Take the First Step for your Child's Education</h2>
+                </div>
+                <p>IPSM Little Wonders, inspired by the best practices, lays the foundation for children to grow and
+                    nurture in an environment that makes them ready for their future ahead. We prepare the child in a
+                    holistic manner from academic, creativity, art & craft and sports point of view.</p>
+                <p>Our skilled faculty with years of experience ensures that every child gets the attention they
+                    deserve. Experience the best preschool in the region.</p>
+                <div style="margin-top: 30px;">
+                    <a th:href="@{/about}" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs">
+        <div class="section-title">
+            <h4 style="color: var(--primary); text-transform: uppercase; font-weight: 700; margin-bottom: 10px;">Our
+                Programs</h4>
+            <h2 style="color: #b71677; font-size: 2.5rem;">Our Specialized Programs</h2>
+        </div>
+        <div class="programs-grid">
+
+            <!-- Toddler (Preschool) -->
+            <div class="program-card" onclick="location.href='/toddler'">
+                <div class="program-img" th:style="'background-image: url(' + @{/images/toddler.png} + ');'"></div>
+                <div class="program-info" style="padding: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Fredoka One', cursive; margin: 0;">TODDLERS</h3>
+                </div>
+            </div>
+            <!-- Pre Nursery (Nursery) -->
+            <div class="program-card" onclick="location.href='/pre-nursery'">
+                <div class="program-img" th:style="'background-image: url(' + @{/images/pre_nursery.png} + ');'"></div>
+                <div class="program-info" style="padding: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Fredoka One', cursive; margin: 0;">PRE-NURSERY</h3>
+                </div>
+            </div>
+            <!-- Nursery (LKG) -->
+            <div class="program-card" onclick="location.href='/nursery'">
+                <div class="program-img" th:style="'background-image: url(' + @{/images/nursuring.png} + ');'"></div>
+                <div class="program-info" style="padding: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Fredoka One', cursive; margin: 0;">NURSERY</h3>
+                </div>
+            </div>
+            <!-- Prep (UKG) -->
+            <div class="program-card" onclick="location.href='/prep'">
+                <div class="program-img" th:style="'background-image: url(' + @{/images/prep.png} + ');'"></div>
+                <div class="program-info" style="padding: 20px;">
+                    <h3 style="color: var(--primary); font-family: 'Fredoka One', cursive; margin: 0;">PREP</h3>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>What Parents Say</h2>
+        </div>
+        <div class="about-container">
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p>"Our daughters studied at IPSM Little Wonders, and it’s the best decision we made. The kids learned
+                    manners and basics here. The staff treats them like family."</p>
+                <h4 style="margin-top: 15px;">- Supriya Rao</h4>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p>"Preschool is the foundation of a child's future. We chose IPSM Little Wonders for our child, and
+                    we are glad about our decision. Highly recommended!"</p>
+                <h4 style="margin-top: 15px;">- Ankkit Gupta</h4>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 0;">
+        <div class="map-container" style="width: 100%; height: 400px;">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.914283577747!2d76.9922261!3d28.5855268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d106680a6886b%3A0xc3af779830da4232!2sGoyla%20Dairy%2C%20New%20Delhi%2C%20Delhi%20110071!5e0!3m2!1sen!2sin!4v1706522000000!5m2!1sen!2sin"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer th:fragment="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h2>IPSM Little Wonders</h2>
+                <p>Nurturing young talents with care. Every child flourishes in our joyful environment.</p>
+                <div style="margin-top: 20px; font-size: 1.5rem; display: flex; gap: 15px;">
+                    <a href="https://facebook.com/ipsmlittlewonders" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/ipsmlittlewonders" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/message/3IXGTPS6JT6KM1" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a th:href="@{/about}">Our School</a></li>
+                    <li><a th:href="@{/mission}">Mission & Vision</a></li>
+                    <li><a th:href="@{/branches}">Our Branches</a></li>
+                    <li><a th:href="@{/contact}">Contact</a></li>
+                    <li><a th:href="@{/careers}">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Our Programs</h4>
+                <ul>
+                    <li><a th:href="@{/toddler}">Toddlers</a></li>
+                    <li><a th:href="@{/pre-nursery}">Pre-Nursery</a></li>
+                    <li><a th:href="@{/nursery}">Nursery</a></li>
+                    <li><a th:href="@{/prep}">Prep</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +91 76783 77155</li>
+                    <li><i class="fas fa-envelope"></i> ipsmlittlewonders@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Goyla Dairy, New Delhi</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IPSM Little Wonders Preschool. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div th:fragment="enquiry-popup">
+        <!-- Floating Side Button -->
+        <div id="sideEnquiryBtn" class="side-enquiry-btn">
+            <i class="fas fa-paper-plane"></i>
+            <span>Enquire Now</span>
+        </div>
+
+        <!-- Popup Overlay -->
+        <div id="enquiryPopup" class="popup-overlay">
+            <div class="popup-content">
+                <span class="popup-close" id="closePopup">&times;</span>
+                <h2 style="font-family: 'Quicksand', sans-serif;">Enquiry Form</h2>
+                <form id="enquiryForm" action="/submit-enquiry" method="post">
+                    <div class="enquiry-form-grid">
+                        <input type="text" name="childName" placeholder="Enter your child's name" required>
+                        <select name="program" required>
+                            <option value="" disabled selected>-- Enquiring for --</option>
+                            <option value="Toddlers">Toddlers</option>
+                            <option value="Pre-Nursery">Pre-Nursery</option>
+                            <option value="Nursery">Nursery</option>
+                            <option value="Prep">Prep</option>
+                        </select>
+                        <select name="relation" required>
+                            <option value="" disabled selected>-- Select relation --</option>
+                            <option value="Father">Father</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Guardian">Guardian</option>
+                        </select>
+                        <input type="text" name="parentName" placeholder="Parents Name" required>
+                        <input type="tel" name="phone" placeholder="Phone Number" required>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="submit-container">
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </div>
+                    <div id="formMessage" style="margin-top: 15px; text-align: center; display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script>
+        // Handle enquiry form submission
+        document.getElementById('enquiryForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitBtn = this.querySelector('.btn-submit');
+            const messageDiv = document.getElementById('formMessage');
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            fetch('/submit-enquiry', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    messageDiv.style.display = 'block';
+                    if (data.status === 'success') {
+                        messageDiv.style.color = '#28a745';
+                        messageDiv.textContent = data.message;
+                        this.reset();
+
+                        // Close popup after 2 seconds
+                        setTimeout(() => {
+                            document.getElementById('enquiryPopup').classList.remove('active');
+                            messageDiv.style.display = 'none';
+                        }, 2000);
+                    } else {
+                        messageDiv.style.color = '#dc3545';
+                        messageDiv.textContent = data.message;
+                    }
+                })
+                .catch(error => {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#dc3545';
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit';
+                });
+        });
+    </script>
+
+</body>
+
+</html>

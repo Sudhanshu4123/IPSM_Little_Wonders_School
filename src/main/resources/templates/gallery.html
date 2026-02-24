@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            height: 250px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 107, 107, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            background: var(--light);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .gallery-overlay i.fa-play-circle {
+            font-size: 4rem;
+            color: white;
+            opacity: 0.9;
+        }
+
+        /* Video Modal Styles */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+        }
+
+        .video-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-video-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="hero"
+        style="height: auto; background: url('/images/gallery_bg.jpg'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; padding: 180px 5% 100px; margin-top: 150px;">
+        <div class="hero-content" style="text-align: center; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">
+            <h1 style="color: white; font-size: 3.5rem; font-weight: 800; margin-bottom: 20px;">Our Memories</h1>
+            <p style="color: white; opacity: 0.9;">Glimpses of joyful learning and activities</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="category-tabs">
+            <div class="tab-btn active" data-filter="all">All</div>
+            <div class="tab-btn" data-filter="classroom">Classroom</div>
+            <div class="tab-btn" data-filter="activities">Activities</div>
+            <div class="tab-btn" data-filter="events">Events</div>
+            <div class="tab-btn" data-filter="playarea">Play Area</div>
+            <div class="tab-btn" data-filter="video">Video</div>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" data-category="activities">
+                <img th:src="@{/images/hero_preschool.png}" alt="Kids Painting">
+                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="classroom">
+                <img th:src="@{/images/hero_preschool.png}" alt="Classroom Environment">
+                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="activities">
+                <img th:src="@{/images/hero_preschool.png}" alt="Group Activity">
+                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+            <div class="gallery-item" data-category="classroom">
+                <img th:src="@{/images/hero_preschool.png}" alt="Learning Time">
+                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+            </div>
+
+            <!-- Video Items -->
+            <div class="gallery-item" data-category="video" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                <img th:src="@{/images/hero_preschool.png}" alt="Video 1">
+                <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+            </div>
+            <div class="gallery-item" data-category="video" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                <img th:src="@{/images/hero_preschool.png}" alt="Video 2">
+                <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
+            </div>
+
+            <div class="gallery-item" data-category="events"
+                style="background: var(--accent); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-images fa-3x" style="color: white;"></i>
+            </div>
+            <div class="gallery-item" data-category="playarea"
+                style="background: var(--primary); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-camera fa-3x" style="color: white;"></i>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span id="closeVideoModal" class="close-video-modal">&times;</span>
+            <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

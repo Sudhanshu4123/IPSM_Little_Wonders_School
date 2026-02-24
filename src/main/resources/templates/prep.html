@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prep Program | Best School in Goyla Dairy - IPSM Little Wonders</title>
+    <meta name="description"
+        content="IPSM Little Wonders Prep Program in Goyla Dairy prepares children for primary school with a comprehensive curriculum. Enroll your child for a bright future.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+    <style>
+        .page-header {
+            height: auto;
+            background: url('/images/prep.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+            position: relative;
+        }
+
+        .header-description {
+            background: rgba(74, 11, 62, 0.75);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 600px;
+            border: 2px solid var(--accent);
+        }
+
+        .header-description p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent) !important;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .page-header h1 {
+            font-size: 5.5rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .breadcrumbs {
+            font-size: 1.1rem;
+        }
+
+        .breadcrumbs a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumbs span {
+            color: var(--accent);
+            margin-left: 5px;
+        }
+
+        .program-detail-section {
+            padding: 80px 5%;
+            background: #fdf2f4;
+        }
+
+        .detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .detail-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-text h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .detail-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #b71677;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .features-list li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-header"
+        th:style="'background-image: url(' + @{/images/prep.png} + '); background-size: cover; background-position: center;'">
+        <h1>Prep</h1>
+        <div class="header-description">
+            <p>Prep curriculum and activities is designed for the age group of 4.5 years to 5.5 years.</p>
+        </div>
+    </section>
+
+    <section class="program-detail-section">
+        <div class="detail-container">
+            <div class="detail-image">
+                <img th:src="@{/images/prep_little.jpeg}" alt="Prep">
+            </div>
+            <div class="detail-text">
+                <!-- <h2>Preparing for the Big School</h2> -->
+                <p>Form Prep onwards, the formal education of a child begins. Hereafter, various conceptual
+                    subjects like English, Hindi, Maths, Science, General Studies, and Environmental Science.
+                    We take care of our students to fulfill the educational needs at this crucial stage of his/her
+                    development.</p>
+
+                <!-- <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Advanced literacy & reading skills</li>
+                    <li><i class="fas fa-check-circle"></i> Logical reasoning & mathematical basics</li>
+                    <li><i class="fas fa-check-circle"></i> Scientific exploration & project work</li>
+                    <li><i class="fas fa-check-circle"></i> Artistic expression through crafts & drama</li>
+                </ul> -->
+
+                <a th:href="@{/admission-form}" class="btn btn-primary">Apply for Admission</a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

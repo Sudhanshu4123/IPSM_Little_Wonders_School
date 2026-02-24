@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toddler Program | Best Play School in Goyla Dairy - IPSM Little Wonders</title>
+    <meta name="description"
+        content="Explore our Toddler program at IPSM Little Wonders, Goyla Dairy. A fun and educational start for your child's learning journey with experienced teachers and a safe environment.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+    <style>
+        .page-header {
+            height: auto;
+            background: url('/images/toddlers_little.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+            position: relative;
+        }
+
+        .header-description {
+            background: rgba(74, 11, 62, 0.75);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 600px;
+            border: 2px solid var(--accent);
+        }
+
+        .header-description p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent) !important;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .page-header h1 {
+            font-size: 5.5rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .breadcrumbs {
+            font-size: 1.1rem;
+        }
+
+        .breadcrumbs a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .breadcrumbs span {
+            color: var(--accent);
+            margin-left: 5px;
+        }
+
+        .program-detail-section {
+            padding: 80px 5%;
+            background: #fdf7f2;
+        }
+
+        .detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .detail-image img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-text h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .detail-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .age-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #b71677;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .features-list li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 992px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-header"
+        th:style="'background-image: url(' + @{/images/toddler.png} + '); background-size: cover; background-position: center;'">
+        <h1>Toddlers</h1>
+        <div class="header-description">
+            <p>Toddlers curriculum and activities is designed for the age group of 1.5 years to 2.5 years.</p>
+        </div>
+    </section>
+
+    <section class="program-detail-section">
+        <div class="detail-container">
+            <div class="detail-image">
+                <img th:src="@{/images/toddler_little.jpeg}" alt="Toddlers">
+            </div>
+            <div class="detail-text">
+                <!-- <h2>Explore & Learn through Play</h2> -->
+                <p>At this stage, we help the child develop inquisitiveness, individuality, and teamwork in a
+                    nurturingenvironment. Here, little wonders begin their learning journey through play, music,
+                    stories, colors, and activities.
+                </p>
+
+                <!-- <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Sensory based learning</li>
+                    <li><i class="fas fa-check-circle"></i> Language development through rhymes</li>
+                    <li><i class="fas fa-check-circle"></i> Motor skills enhancement</li>
+                    <li><i class="fas fa-check-circle"></i> Safe and colorful environment</li>
+                </ul>
+ -->
+                <a th:href="@{/admission-form}" class="btn btn-primary">Apply for Admission</a>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

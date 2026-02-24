@@ -1,0 +1,49 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/resources/architecture/*.png
+!**/src/main/resources/images/*.png
+!**/src/main/resources/static/images/*.png
+!**/src/main/resources/static/favicon.ico
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/resources/static/
+
+### VS Code ###
+.vscode/
+
+### Operating System Files ###
+*.DS_Store
+Thumbs.db
+
+### Deployment Files ###
+part*
+*.b64
+fix_nginx.sh
+nginx_fixed.conf
+
+### Local Tools (not needed in repo) ###
+apache-maven-3.9.6/
+plink.exe
+pscp.exe

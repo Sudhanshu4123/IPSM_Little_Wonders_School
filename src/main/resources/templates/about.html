@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | IPSM Little Wonders Preschool Goyla Dairy</title>
+    <meta name="description"
+        content="Learn more about IPSM Little Wonders, the largest preschool in Goyla Dairy with over 20 years of experience in early childhood education. Our mission is to nurture little minds safely.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .about-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/ourschool.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+        }
+
+        .about-hero-content h1 {
+            font-size: 4rem;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .why-choose-section {
+            padding: 80px 5%;
+            background: #fff;
+        }
+
+        .features-grid-custom {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            background: #fdf7f9;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(183, 22, 119, 0.1);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .icon-circle i {
+            font-size: 2rem;
+            color: #b71677;
+        }
+
+        .feature-item h3 {
+            color: #b71677;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .feature-item p {
+            color: #000000;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 992px) {
+            .about-hero {
+                height: 400px;
+                padding: 120px 15px 60px;
+                margin-top: 140px;
+            }
+
+            .about-hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .why-choose-section {
+                padding: 50px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1>Our School</h1>
+        </div>
+    </section>
+
+    <section class="why-choose-section">
+        <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+            <span class="sub-title"
+                style="color: #b71677; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">WELCOME</span>
+            <h2 style="font-size: 2.8rem; color: #b71677; margin-top: 10px;">Why Choose <span class="highlight"
+                    style="color: #b71677;">IPSM Little Wonders</span></h2>
+        </div>
+        <div class="features-grid-custom">
+            <!-- Infrastructure -->
+            <div class="feature-item">
+                <div class="icon-circle">
+                    <i class="fas fa-school"></i>
+                </div>
+                <h3>Expertise in Education</h3>
+                <p>The IPSM Little Wonders Pre School is run and managed by The intellectual
+                    society of India, have more than 20 years of experence in the field of education.
+                    Our Whole team is dedicated to meaningful education for this society.
+                </p>
+            </div>
+            <!-- Student Teacher Ratio -->
+            <div class="feature-item">
+                <div class="icon-circle">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Largest Pre-School</h3>
+                <p>The largest pre-school in the area. The IPSM Little WOnders Pre School is established in
+                    an are of more than 9000 square feet with sprawling green lawn area, play area and other
+                    playing activities with modern equipment in classrooms.
+                </p>
+            </div>
+            <!-- Safety First -->
+            <div class="feature-item">
+                <div class="icon-circle">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Child's Safety</h3>
+                <p>Child's safety is the most important proirity if IPSM Little Wonders Pre School.
+                    Cameras are installed all over the school, including classrooms, play areas, corridors, etc.
+                    The live camera access will be porvided to parents. The child's activities are supervised
+                    throughtout
+                    his/her time in school.
+                </p>
+            </div>
+            <!-- Compassionate facilitators -->
+            <div class="feature-item">
+                <div class="icon-circle">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Activities</h3>
+                <p>With a modern and scientific approach, all students are very involved
+                    in various activities in order to imporve the overall development of
+                    the child. This will help to improve the emotional, social, and physical
+                    skill to the child under skilled and experienced teachers.
+                </p>
+            </div>
+            <!-- Curriculum -->
+            <div class="feature-item">
+                <div class="icon-circle">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3>Curriculum</h3>
+                <p>At IPSM Little Wonders Pre School, we give more importance to lay the foundation of a child
+                    to become a good human being in his/her life. Humanity first is our approach.
+                    We try to make them competitive at the child level as per the national and
+                    international standards of education. The whole curriculum is designed according to the scientific
+                    approach of education.
+                </p>
+            </div>
+            <!-- Activities -->
+            <div class="feature-item">
+                <div class="icon-circle">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Child Care</h3>
+                <p>Your child is our priority. We give the atmost importance to the care of a child as the 2nd home.
+                    The teaches and staff will be ready round the clock to support the child when he/she is at IPSM
+                    Little Wonders. </p>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

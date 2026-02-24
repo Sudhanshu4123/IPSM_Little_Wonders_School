@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section methodology-hero-bg">
+        <div class="container">
+            <h1>Methodology</h1>
+        </div>
+    </section>
+
+    <section class="methodology-content-section">
+        <div class="container">
+            <div class="methodology-header">
+                <h2>Our <span class="highlight-pink">Methodology</span></h2>
+            </div>
+
+            <div class="methodology-description">
+                <p>With more than 20 years of experience in the field of education, our
+                    methodology is a blend of scientific, tested techniques combined with a
+                    modern lesson system and innovative teaching tools.
+                </p>
+
+                <p>As early age educators, we have designed our curriculum to ensure that a
+                    child can grow completely in all senses to become a future good human being.
+                    The emotional need is fulfilled during this stage, which is the most important
+                    part of a child's development.
+                </p>
+            </div>
+
+            <div class="emphasis-section">
+                <h3>Various important parts of our methodology are :</h3>
+                <ul class="emphasis-list">
+                    <li><i class="fas fa-check-circle"></i> Learn through fun activities.</li>
+                    <li><i class="fas fa-check-circle"></i> Theme-based teaching</li>
+                    <li><i class="fas fa-check-circle"></i> Regular project building.</li>
+                    <li><i class="fas fa-check-circle"></i> Educational trips.</li>
+                    <li><i class="fas fa-check-circle"></i> Celebrates various events & stages on a podium for public
+                        speaking, which will develop the personality of the child.
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> Personality growth classes.</li>
+                    <li><i class="fas fa-check-circle"></i> Ethics building with phonics and actions.</li>
+                    <li><i class="fas fa-check-circle"></i> Creating awareness regarding health and hygiene.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

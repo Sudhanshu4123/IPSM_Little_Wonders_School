@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission & Vision | IPSM Little Wonders Preschool Goyla Dairy</title>
+    <meta name="description"
+        content="Read about the Mission and Vision of IPSM Little Wonders. We aim to build confidence in children and create a loving environment for their growth.">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .mission-hero {
+            height: auto;
+            min-height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/mission&vision.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+        }
+
+        .header-description {
+            background: rgba(74, 11, 62, 0.75);
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-width: 800px;
+            border: 2px solid var(--accent);
+        }
+
+        .header-description p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent) !important;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .mission-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .mission-vision-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .mission-vision-grid:first-of-type {
+            margin-bottom: 80px;
+        }
+
+        .vision-image img,
+        .mission-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .section-header .sub-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .vision-content .sub-title {
+            color: #b71677;
+        }
+
+        .mission-content .sub-title {
+            color: #b71677;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #b71677;
+            margin-top: 10px;
+        }
+
+        .highlight-pink {
+            color: #d81b60;
+        }
+
+        .highlight {
+            color: #b71677;
+        }
+
+        .vision-content-box {
+            background: #fdf7f9;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid #b71677;
+        }
+
+        .mission-content-box {
+            background: #fff9e6;
+            /* Soft Yellow */
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid #FFE66D;
+        }
+
+        .vision-content-box p,
+        .mission-content-box p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #000;
+        }
+
+        .vision-content-box p {
+            font-style: italic;
+        }
+
+        @media (max-width: 992px) {
+            .mission-hero {
+                height: 350px;
+                padding: 120px 15px 60px;
+                margin-top: 140px;
+            }
+
+            .mission-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .mission-vision-section {
+                padding: 40px 15px;
+            }
+
+            .mission-content {
+                order: 1 !important;
+            }
+
+            .mission-image {
+                order: 2 !important;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="mission-hero">
+        <h1>Mission & Vision</h1>
+        <div class="header-description">
+            <p>With a vision to nurture little minds with morality, creativity, and love for learning to become good
+                human beings in life.</p>
+        </div>
+    </section>
+
+    <section class="mission-vision-section">
+        <div class="container">
+            <div class="mission-vision-grid">
+                <div class="mission-image">
+                    <img th:src="@{/images/mission_vision_little.jpeg}" alt="IPSM Little Wonders Mission & Vision">
+                </div>
+                <div class="mission-vision-content">
+                    <!-- Vision Section -->
+                    <div class="vision-content" style="margin-bottom: 40px;">
+                        <div class="section-header">
+                            <span class="sub-title">FUTURE FOCUS</span>
+                            <h2>Our <span class="highlight-pink">Vision</span></h2>
+                        </div>
+                        <div class="vision-content-box">
+                            <p>
+                                "All children should build confidence for their future through the journey of IPSM
+                                Little
+                                Wonders Pre School, so they become responsible, active, and good human beings."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Mission Section -->
+                    <div class="mission-content">
+                        <div class="section-header">
+                            <span class="sub-title">OUR PURPOSE</span>
+                            <h2>Our <span class="highlight">Mission</span></h2>
+                        </div>
+                        <div class="mission-content-box">
+                            <p>
+                                "To create an environment where every child is encouraged to grow with love and passion
+                                without fear, with all dignity to become confident, compassionate and satisfied
+                                individuals
+                                in life."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

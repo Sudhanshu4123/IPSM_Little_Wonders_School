@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franchise - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/png">
+    <style>
+        .franchise-form-section {
+            padding: 80px 5%;
+            background: #fdf7f2;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(183, 22, 119, 0.1);
+        }
+
+        .franchise-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #b71677;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #b71677;
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+            background: #b71677;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .submit-btn:hover {
+            background: #d81b60;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .franchise-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .submit-btn {
+                grid-column: span 1;
+            }
+        }
+
+        .franchise-content-section {
+            padding: 80px 5%;
+            text-align: center;
+            background: #fff;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .franchise-content-section i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .franchise-content-section h2 {
+            font-size: 2.8rem;
+            color: #b71677;
+            margin-bottom: 30px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .franchise-text {
+            font-size: 1.25rem;
+            color: #444;
+            max-width: 850px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .franchise-text p {
+            margin-bottom: 20px;
+        }
+
+        .franchise-highlight {
+            color: #b71677;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <section class="page-title-section"
+        th:style="'background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' + @{'/images/mission&vision.jpeg'} + '); background-size: cover; background-position: center;'">
+        <div class="container">
+            <h1>Franchise</h1>
+        </div>
+    </section>
+
+    <section class="franchise-content-section" style="padding-bottom: 40px;">
+        <i class="fas fa-handshake"></i>
+        <h2>Grow With Us</h2>
+        <div class="franchise-text">
+            <p>Welcome to <span class="franchise-highlight">IPSM Little Wonders</span> family. Be a part of Prestigious
+                and dedicated IPSM Little Wonders Pre School chain in all over India.</p>
+
+            <p>Our expertise in the field of education since 20 years makes us different from others in spreading
+                valuable knowledge to little champs through a specially designed pre-school.</p>
+
+            <p>The team of IPSM Family, including staff, teachers, and management, is completely dedicated towards
+                betterment of little minds.</p>
+
+            <p>Here we follow the complete growth of little minds with modern activities as well as a scientific
+                approach.</p>
+
+            <p class="franchise-highlight" style="font-size: 1.4rem; margin-top: 30px;">Feel proud to be part of IPSM
+                Little Wonders family with a vision to nurture little minds and become successful educators.</p>
+        </div>
+    </section>
+
+    <section class="franchise-form-section">
+        <div class="form-container">
+            <form action="/franchise/enquiry" method="POST" class="franchise-form" id="franchiseForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Your phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" placeholder="Enter your State" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="area">Area</label>
+                    <input type="text" id="area" name="area" placeholder="Enter your Area" required>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">Send Enquiry</button>
+                <div id="formMessage"
+                    style="grid-column: span 2; margin-top: 15px; text-align: center; display: none; font-weight: 600;">
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer th:replace="~{index :: footer}"></footer>
+    <script th:src="@{/js/main.js}"></script>
+    <script>
+        document.getElementById('franchiseForm')?.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitBtn = document.getElementById('submitBtn');
+            const messageDiv = document.getElementById('formMessage');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            fetch('/franchise/enquiry', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    messageDiv.style.display = 'block';
+                    if (data.status === 'success') {
+                        messageDiv.style.color = '#28a745';
+                        messageDiv.textContent = data.message;
+                        this.reset();
+                    } else {
+                        messageDiv.style.color = '#dc3545';
+                        messageDiv.textContent = data.message;
+                    }
+                })
+                .catch(error => {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.color = '#dc3545';
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Enquiry';
+                });
+        });
+    </script>
+</body>
+
+</html>
