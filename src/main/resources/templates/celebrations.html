@@ -14,12 +14,76 @@
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
         }
 
+        .celebrations-grid-custom {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .celebration-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1.1;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
         .celebration-card img {
             transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .celebration-card:hover img {
             transform: scale(1.1);
+        }
+
+        .celebration-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 10px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            color: white;
+            text-align: center;
+        }
+
+        .celebration-overlay h3 {
+            font-size: 1rem;
+            margin-bottom: 0px;
+            font-family: 'Fredoka One', cursive;
+            line-height: 1.2;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        @media (max-width: 1200px) {
+            .celebrations-grid-custom {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .celebrations-grid-custom {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .celebrations-grid-custom {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 0 10px;
+            }
+
+            .celebration-overlay h3 {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -40,77 +104,229 @@
             <h2>Vibrant <span class="highlight">Moments</span></h2>
         </div>
 
-        <div class="celebrations-grid"
-            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
-            <!-- Celebration 1 -->
-            <div class="celebration-card"
-                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=800&auto=format&fit=crop"
-                    alt="Diwali" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="celebration-overlay"
-                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Diwali Celebration</h3>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Festival of Lights with Little Wonders</p>
+        <div class="celebrations-grid-custom">
+            <!-- 1 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/INDEPENDENCE DAY.png}" alt="Independence Day">
+                <div class="celebration-overlay">
+                    <h3>Independence Day</h3>
                 </div>
             </div>
-
-            <!-- Celebration 2 -->
-            <div class="celebration-card"
-                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="https://images.unsplash.com/photo-1543589077-47d816067938?q=80&w=800&auto=format&fit=crop"
-                    alt="Christmas" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="celebration-overlay"
-                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Christmas Carnival</h3>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Joyful carols and Santa's visit</p>
+            <!-- 2 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/REPUBLIC DAY.png}" alt="Republic Day">
+                <div class="celebration-overlay">
+                    <h3>Republic Day</h3>
                 </div>
             </div>
-
-            <!-- Celebration 3 -->
-            <div class="celebration-card"
-                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="https://images.unsplash.com/photo-1540324155974-7523202daa3f?q=80&w=800&auto=format&fit=crop"
-                    alt="Holi" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="celebration-overlay"
-                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Holi Hai!</h3>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Colors of joy and friendship</p>
+            <!-- 3 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/SPORTS DAY.png}" alt="Sports Day">
+                <div class="celebration-overlay">
+                    <h3>Sports Day</h3>
                 </div>
             </div>
-
-            <!-- Celebration 4 -->
-            <div class="celebration-card"
-                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop"
-                    alt="Annual Day" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="celebration-overlay"
-                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Annual Day</h3>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Showcasing talents of our little stars</p>
+            <!-- 4 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/EARTH DAY.png}" alt="Earth Day">
+                <div class="celebration-overlay">
+                    <h3>Earth Day</h3>
                 </div>
             </div>
-
-            <!-- Celebration 5 -->
-            <div class="celebration-card"
-                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?q=80&w=800&auto=format&fit=crop"
-                    alt="Birthday" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="celebration-overlay"
-                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Monthly Birthdays</h3>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Adding more years of happiness</p>
+            <!-- 5 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/ANNUAL DAY.png}" alt="Annual Day">
+                <div class="celebration-overlay">
+                    <h3>Annual Day</h3>
                 </div>
             </div>
-
-            <!-- Celebration 6 -->
-            <div class="celebration-card"
-                style="position: relative; border-radius: 20px; overflow: hidden; height: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800&auto=format&fit=crop"
-                    alt="Grandparents Day" style="width: 100%; height: 100%; object-fit: cover;">
-                <div class="celebration-overlay"
-                    style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Grandparents Day</h3>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Honoring our roots and wisdom</p>
+            <!-- 6 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/WORLD ANIMAL DAY.png}" alt="World Animal Day">
+                <div class="celebration-overlay">
+                    <h3>World Animal Day</h3>
+                </div>
+            </div>
+            <!-- 7 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/INTERNATIONAL DAY OF HAPPINESS.png}" alt="World Happiness Day">
+                <div class="celebration-overlay">
+                    <h3>World Happiness Day</h3>
+                </div>
+            </div>
+            <!-- 8 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/TEACHERS DAY.png}" alt="Teachers Day">
+                <div class="celebration-overlay">
+                    <h3>Teachers Day</h3>
+                </div>
+            </div>
+            <!-- 9 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/CHILDRENS DAY.png}" alt="Childrens Day">
+                <div class="celebration-overlay">
+                    <h3>Childrens Day</h3>
+                </div>
+            </div>
+            <!-- 10 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/BIRTHDAY.png}" alt="Birthday">
+                <div class="celebration-overlay">
+                    <h3>Birthday</h3>
+                </div>
+            </div>
+            <!-- 11 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/GRAND PARENTS DAY.png}" alt="Grand Parents Day">
+                <div class="celebration-overlay">
+                    <h3>Grand Parents Day</h3>
+                </div>
+            </div>
+            <!-- 12 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/FATHERS DAY.png}" alt="Fathers Day">
+                <div class="celebration-overlay">
+                    <h3>Fathers Day</h3>
+                </div>
+            </div>
+            <!-- 13 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/MOTHERS DAY.png}" alt="Mothers Day">
+                <div class="celebration-overlay">
+                    <h3>Mothers Day</h3>
+                </div>
+            </div>
+            <!-- 14 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/SIBLINGS DAY.png}" alt="Siblings Day">
+                <div class="celebration-overlay">
+                    <h3>Siblings Day</h3>
+                </div>
+            </div>
+            <!-- 15 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/FRIENDSHIP DAY.png}" alt="Friendship Day">
+                <div class="celebration-overlay">
+                    <h3>Friendship Day</h3>
+                </div>
+            </div>
+            <!-- 16 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/HOLI.png}" alt="Holi">
+                <div class="celebration-overlay">
+                    <h3>Holi</h3>
+                </div>
+            </div>
+            <!-- 17 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/DIWALI.png}" alt="Diwali">
+                <div class="celebration-overlay">
+                    <h3>Diwali</h3>
+                </div>
+            </div>
+            <!-- 18 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/EID.png}" alt="Eid">
+                <div class="celebration-overlay">
+                    <h3>Eid</h3>
+                </div>
+            </div>
+            <!-- 19 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/CHRISTMAS.png}" alt="Christmas">
+                <div class="celebration-overlay">
+                    <h3>Christmas</h3>
+                </div>
+            </div>
+            <!-- 20 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/GURU NANAK JAYANTI.png}" alt="Guru Nanak Jayanti">
+                <div class="celebration-overlay">
+                    <h3>Guru Nanak Jayanti</h3>
+                </div>
+            </div>
+            <!-- 21 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/BUDHH PURNIMA.png}" alt="Budhh Purnima">
+                <div class="celebration-overlay">
+                    <h3>Budhh Purnima</h3>
+                </div>
+            </div>
+            <!-- 22 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/GRADUATION DAY.png}" alt="Graduation Day">
+                <div class="celebration-overlay">
+                    <h3>Graduation Day</h3>
+                </div>
+            </div>
+            <!-- 23 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/ART & CRAFT DAY.png}" alt="Art & Craft Day">
+                <div class="celebration-overlay">
+                    <h3>Art & Craft Day</h3>
+                </div>
+            </div>
+            <!-- 24 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/PICNIC DAY.png}" alt="Picnic Day">
+                <div class="celebration-overlay">
+                    <h3>Picnic Day</h3>
+                </div>
+            </div>
+            <!-- 25 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/VEGETABLE DAY.png}" alt="Vegetable Day">
+                <div class="celebration-overlay">
+                    <h3>Vegetable Day</h3>
+                </div>
+            </div>
+            <!-- 26 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/FRUIT DAY.png}" alt="Fruit Day">
+                <div class="celebration-overlay">
+                    <h3>Fruit Day</h3>
+                </div>
+            </div>
+            <!-- 27 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/COLORS DAY.png}" alt="Colors Day">
+                <div class="celebration-overlay">
+                    <h3>Colors Day</h3>
+                </div>
+            </div>
+            <!-- 28 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/TALENT HUNT DAY.png}" alt="Talent Hunt Day">
+                <div class="celebration-overlay">
+                    <h3>Talent Hunt Day</h3>
+                </div>
+            </div>
+            <!-- 29 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/FANCY DRESS.png}" alt="Fancy Dress Day">
+                <div class="celebration-overlay">
+                    <h3>Fancy Dress Day</h3>
+                </div>
+            </div>
+            <!-- 30 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/SPACE_ ASTRONAUT DAY.png}" alt="Space/Astronaut Day">
+                <div class="celebration-overlay">
+                    <h3>Space/Astronaut Day</h3>
+                </div>
+            </div>
+            <!-- 31 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/MAGIC SHOW DAY.png}" alt="Magic Show Day">
+                <div class="celebration-overlay">
+                    <h3>Magic Show</h3>
+                </div>
+            </div>
+            <!-- 32 -->
+            <div class="celebration-card">
+                <img th:src="@{/images/PUPPET THEATRE DAY.png}" alt="Puppet Theatre Day">
+                <div class="celebration-overlay">
+                    <h3>Puppet Theatre</h3>
                 </div>
             </div>
         </div>

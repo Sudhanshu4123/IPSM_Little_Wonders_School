@@ -9,120 +9,311 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .holiday-hero {
+            height: auto;
+            min-height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/holiday_image.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+        }
+
+        .holiday-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .holiday-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .holiday-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: flex-start;
+        }
+
+        .holiday-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            aspect-ratio: 1 / 1.2;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .section-header .sub-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b71677;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #b71677;
+            margin-top: 10px;
+        }
+
+        .highlight-pink {
+            color: #d81b60;
+        }
+
+        .holiday-table-wrapper {
+            background: #fdf7f9;
+            padding: 20px;
+            border-radius: 20px;
+            border-left: 5px solid #b71677;
+            box-shadow: 0 10px 30px rgba(183, 22, 119, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 15px;
+            color: #b71677;
+            border-bottom: 2px solid #b71677;
+            font-family: 'Fredoka One', cursive;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
+        td {
+            padding: 12px 15px;
+            color: #333;
+            border-bottom: 1px solid rgba(183, 22, 119, 0.1);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .note-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff9e6;
+            border-radius: 15px;
+            border-left: 5px solid #FFE66D;
+        }
+
+        .note-box h4 {
+            color: #b71677;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .holiday-hero {
+                height: 350px;
+                padding: 120px 15px 60px;
+                margin-top: 140px;
+            }
+
+            .holiday-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .holiday-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div th:replace="~{index :: header}"></div>
 
-    <section class="page-title-section"
-        th:style="'background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' + @{'/images/holiday_image.jpeg'} + '); background-size: cover; background-position: center;'">
+    <section class="holiday-hero">
+        <h1>Holiday List</h1>
+    </section>
+
+    <section class="holiday-section">
         <div class="container">
-            <h1>Holiday List</h1>
+            <div class="holiday-grid">
+                <div class="holiday-image">
+                    <img th:src="@{/images/holiday_list_small.jpeg}" alt="IPSM Little Wonders Holiday List">
+                </div>
+                <div class="holiday-content">
+                    <div class="section-header">
+                        <span class="sub-title">CALENDAR</span>
+                        <h2>School <span class="highlight-pink">Holidays</span></h2>
+                    </div>
+
+                    <div class="holiday-table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">S.No</th>
+                                    <th>Holiday</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Makar Sankranti</td>
+                                    <td>Harvest Festival</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Republic Day</td>
+                                    <td>Indian Constitution Day</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Maha Shivratri</td>
+                                    <td>Worship of Lord Shiva</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Holi</td>
+                                    <td>Festival of Colors</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Ram Navami</td>
+                                    <td>Birth of Lord Ram</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Mahavir Jayanti</td>
+                                    <td>Birth of Mahavir</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Good Friday</td>
+                                    <td>Day of Prayer</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Eid-ul-Fitr</td>
+                                    <td>Festival After Fasting</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Buddha Purnima</td>
+                                    <td>Birth of Buddha</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Eid-ul-Zuha (Bakrid)</td>
+                                    <td>Festival of Sacrifice</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>Muharram</td>
+                                    <td>Islamic Remembrance Day</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Raksha Bandhan</td>
+                                    <td>Sibling Love Celebration</td>
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td>Independence Day</td>
+                                    <td>India’s Freedom Day</td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td>Janmashtami</td>
+                                    <td>Birth of Krishna</td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td>Milad-un-Nabi</td>
+                                    <td>Prophet’s Birthday</td>
+                                </tr>
+                                <tr>
+                                    <td>16</td>
+                                    <td>Gandhi Jayanti</td>
+                                    <td>Birth of Mahatma Gandhi</td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>Dussehra</td>
+                                    <td>Victory of Good</td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td>Valmiki Jayanti</td>
+                                    <td>Birth of Valmiki</td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td>Diwali</td>
+                                    <td>Festival of Lights</td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td>Govardhan Pooja</td>
+                                    <td>Worship of Govardhan</td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td>Bhai Dooj</td>
+                                    <td>Brother-Sister Bond</td>
+                                </tr>
+                                <tr>
+                                    <td>22</td>
+                                    <td>Guru Nanak Jayanti</td>
+                                    <td>Birth of Guru Nanak</td>
+                                </tr>
+                                <tr>
+                                    <td>23</td>
+                                    <td>Children’s Day</td>
+                                    <td>Celebration of Children</td>
+                                </tr>
+                                <tr>
+                                    <td>24</td>
+                                    <td>Christmas Day</td>
+                                    <td>Birth of Jesus</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="note-box">
+                        <h4><i class="fas fa-info-circle"></i> Important Notes:</h4>
+                        <p><strong>Summer Vacation</strong></p>
+                        <p><strong>Winter Vacation</strong></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="holiday-list-section">
-        <div class="section-header">
-            <span class="sub-title">Calendar</span>
-            <h2>School <span class="highlight">Holidays</span></h2>
-        </div>
-
-        <div class="holiday-container" style="max-width: 900px; margin: 0 auto;">
-            <div class="holiday-table-wrapper"
-                style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-                <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <thead style="background: var(--primary); color: white;">
-                        <tr>
-                            <th style="padding: 20px;">S.No</th>
-                            <th style="padding: 20px;">Date</th>
-                            <th style="padding: 20px;">Day</th>
-                            <th style="padding: 20px;">Holiday</th>
-                        </tr>
-                    </thead>
-                    <tbody style="color: #444;">
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px 20px;">1</td>
-                            <td style="padding: 15px 20px;">January 14, 2026</td>
-                            <td style="padding: 15px 20px;">Wednesday</td>
-                            <td style="padding: 15px 20px;">Makar Sankranti</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fdfdfd;">
-                            <td style="padding: 15px 20px;">2</td>
-                            <td style="padding: 15px 20px;">January 26, 2026</td>
-                            <td style="padding: 15px 20px;">Monday</td>
-                            <td style="padding: 15px 20px;">Republic Day</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px 20px;">3</td>
-                            <td style="padding: 15px 20px;">March 13, 2026</td>
-                            <td style="padding: 15px 20px;">Friday</td>
-                            <td style="padding: 15px 20px;">Holi</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px 20px;">4</td>
-                            <td style="padding: 15px 20px;">March 20, 2026</td>
-                            <td style="padding: 15px 20px;">Friday</td>
-                            <td style="padding: 15px 20px;">Eid-ul-fitr</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fdfdfd;">
-                            <td style="padding: 15px 20px;">5</td>
-                            <td style="padding: 15px 20px;">April 2, 2026</td>
-                            <td style="padding: 15px 20px;">Thursday</td>
-                            <td style="padding: 15px 20px;">Good Friday</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px 20px;">6</td>
-                            <td style="padding: 15px 20px;">August 15, 2026</td>
-                            <td style="padding: 15px 20px;">Saturday</td>
-                            <td style="padding: 15px 20px;">Independence Day</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fdfdfd;">
-                            <td style="padding: 15px 20px;">7</td>
-                            <td style="padding: 15px 20px;">October 2, 2026</td>
-                            <td style="padding: 15px 20px;">Friday</td>
-                            <td style="padding: 15px 20px;">Gandhi Jayanti</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px 20px;">8</td>
-                            <td style="padding: 15px 20px;">October 21, 2026</td>
-                            <td style="padding: 15px 20px;">Wednesday</td>
-                            <td style="padding: 15px 20px;">Dussehra</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fdfdfd;">
-                            <td style="padding: 15px 20px;">9</td>
-                            <td style="padding: 15px 20px;">November 1, 2026</td>
-                            <td style="padding: 15px 20px;">Sunday</td>
-                            <td style="padding: 15px 20px;">Diwali</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee; background: #fdfdfd;">
-                            <td style="padding: 15px 20px;">10</td>
-                            <td style="padding: 15px 20px;">November 5, 2026</td>
-                            <td style="padding: 15px 20px;">Sunday</td>
-                            <td style="padding: 15px 20px;">Gurunanak Jayanti</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px 20px;">11</td>
-                            <td style="padding: 15px 20px;">December 25, 2026</td>
-                            <td style="padding: 15px 20px;">Friday</td>
-                            <td style="padding: 15px 20px;">Christmas</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div
-                style="margin-top: 40px; padding: 30px; background: #fff9f3; border-radius: 20px; border-left: 5px solid var(--primary);">
-                <h4 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Note:</h4>
-                <p style="color: #666;">* Summer Vacation: May 20th - June 30th</p>
-                <p style="color: #666;">* Winter Vacation: December 24th - January 12th</p>
-                <p style="color: #666;">* All Saturdays are holidays for Preschoolers.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer th:replace="~{index :: footer}"></footer>
-
     <script th:src="@{/js/main.js}"></script>
 </body>
 

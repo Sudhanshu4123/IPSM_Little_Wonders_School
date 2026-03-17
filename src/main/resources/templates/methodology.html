@@ -4,61 +4,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Methodology - IPSM Little Wonders</title>
+    <title>Methodology | IPSM Little Wonders Preschool Goyla Dairy</title>
+    <meta name="description"
+        content="Our teaching methodology is a blend of scientific, tested techniques combined with a modern lesson system.">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .methodology-hero {
+            height: auto;
+            min-height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/methology.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 180px 5% 100px;
+            margin-top: 150px;
+        }
+
+        .methodology-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            font-weight: 800;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .methodology-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .methodology-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .section-header .sub-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b71677;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: #b71677;
+            margin-top: 10px;
+        }
+
+        .highlight-pink {
+            color: #d81b60;
+        }
+
+        .content-box {
+            background: #fdf7f9;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid #b71677;
+        }
+
+        .content-box p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .content-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .emphasis-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .emphasis-list li {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #333;
+        }
+
+        .emphasis-list li i {
+            color: #b71677;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .methodology-hero {
+                height: 350px;
+                padding: 120px 15px 60px;
+                margin-top: 140px;
+            }
+
+            .methodology-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .methodology-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div th:replace="~{index :: header}"></div>
 
-    <section class="page-title-section methodology-hero-bg">
-        <div class="container">
-            <h1>Methodology</h1>
-        </div>
+    <section class="methodology-hero">
+        <h1>Methodology</h1>
     </section>
 
-    <section class="methodology-content-section">
+    <section class="methodology-section">
         <div class="container">
-            <div class="methodology-header">
-                <h2>Our <span class="highlight-pink">Methodology</span></h2>
-            </div>
+            <div class="methodology-grid">
+                <div class="methodology-image">
+                    <img th:src="@{/images/methodology_small.jpeg}" alt="IPSM Little Wonders Methodology">
+                </div>
+                <div class="methodology-content">
+                    <div class="section-header">
+                        <span class="sub-title">OUR APPROACH</span>
+                        <h2>Our <span class="highlight-pink">Methodology</span></h2>
+                    </div>
+                    <div class="content-box">
+                        <p>With more than 20 years of experience in the field of education, our methodology is a blend
+                            of scientific, tested techniques combined with a modern lesson system and innovative
+                            teaching tools.</p>
+                        <p>As early age educators, we have designed our curriculum to ensure that a child can grow
+                            completely in all senses to become a future good human being.</p>
 
-            <div class="methodology-description">
-                <p>With more than 20 years of experience in the field of education, our
-                    methodology is a blend of scientific, tested techniques combined with a
-                    modern lesson system and innovative teaching tools.
-                </p>
-
-                <p>As early age educators, we have designed our curriculum to ensure that a
-                    child can grow completely in all senses to become a future good human being.
-                    The emotional need is fulfilled during this stage, which is the most important
-                    part of a child's development.
-                </p>
-            </div>
-
-            <div class="emphasis-section">
-                <h3>Various important parts of our methodology are :</h3>
-                <ul class="emphasis-list">
-                    <li><i class="fas fa-check-circle"></i> Learn through fun activities.</li>
-                    <li><i class="fas fa-check-circle"></i> Theme-based teaching</li>
-                    <li><i class="fas fa-check-circle"></i> Regular project building.</li>
-                    <li><i class="fas fa-check-circle"></i> Educational trips.</li>
-                    <li><i class="fas fa-check-circle"></i> Celebrates various events & stages on a podium for public
-                        speaking, which will develop the personality of the child.
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> Personality growth classes.</li>
-                    <li><i class="fas fa-check-circle"></i> Ethics building with phonics and actions.</li>
-                    <li><i class="fas fa-check-circle"></i> Creating awareness regarding health and hygiene.</li>
-                </ul>
+                        <ul class="emphasis-list">
+                            <li><i class="fas fa-check-circle"></i> Learn through fun activities.</li>
+                            <li><i class="fas fa-check-circle"></i> Theme-based teaching</li>
+                            <li><i class="fas fa-check-circle"></i> Regular project building.</li>
+                            <li><i class="fas fa-check-circle"></i> Educational trips.</li>
+                            <li><i class="fas fa-check-circle"></i> Celebrates various events & stages on a podium for
+                                public speaking, which will develop the personality of the child.</li>
+                            <li><i class="fas fa-check-circle"></i> Personality growth classes.</li>
+                            <li><i class="fas fa-check-circle"></i> Ethics building with phonics and actions.</li>
+                            <li><i class="fas fa-check-circle"></i> Creating awareness regarding health and hygiene.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer th:replace="~{index :: footer}"></footer>
-
-
     <script th:src="@{/js/main.js}"></script>
 </body>
 
