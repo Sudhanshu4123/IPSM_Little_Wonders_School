@@ -37,6 +37,10 @@ public class AdmissionApplication {
     private Integer numBrothers;
     private Integer numSisters;
 
+    private String session;
+
+    private String admissionStatus = "PENDING"; // PENDING, ADMITTED
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -228,5 +232,21 @@ public class AdmissionApplication {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getSession() {
+        return session;
+    }
+
+    public void setSession(String session) {
+        this.session = session;
+    }
+
+    public String getAdmissionStatus() {
+        return admissionStatus;
+    }
+
+    public void setAdmissionStatus(String admissionStatus) {
+        this.admissionStatus = admissionStatus;
     }
 }

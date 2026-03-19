@@ -47,3 +47,10 @@ nginx_fixed.conf
 apache-maven-3.9.6/
 plink.exe
 pscp.exe
+deploy_all.ps1
+split_jar.ps1
+upload_part.ps1
+encode_part.ps1
+bulk_upload.ps1
+maven.zip
+*.log

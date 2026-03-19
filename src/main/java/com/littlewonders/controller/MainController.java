@@ -2,6 +2,12 @@ package com.littlewonders.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import com.littlewonders.repository.BlogRepository;
+import com.littlewonders.repository.GalleryRepository;
+import com.littlewonders.repository.CelebrationRepository;
+import com.littlewonders.repository.BranchRepository;
 
 @Controller
 public class MainController {
@@ -26,8 +32,12 @@ public class MainController {
         return "admission";
     }
 
+    @Autowired
+    private GalleryRepository galleryRepository;
+
     @GetMapping("/gallery")
-    public String gallery() {
+    public String gallery(Model model) {
+        model.addAttribute("galleryItems", galleryRepository.findByActiveTrueOrderByUploadDateDesc());
         return "gallery";
     }
 
@@ -76,8 +86,12 @@ public class MainController {
         return "admission-faq";
     }
 
+    @Autowired
+    private BlogRepository blogRepository;
+
     @GetMapping("/blog")
-    public String blog() {
+    public String blog(Model model) {
+        model.addAttribute("blogs", blogRepository.findByActiveTrueOrderByPublishedDateDesc());
         return "blog";
     }
 
@@ -86,8 +100,12 @@ public class MainController {
         return "holidays";
     }
 
+    @Autowired
+    private CelebrationRepository celebrationRepository;
+
     @GetMapping("/celebrations")
-    public String celebrations() {
+    public String celebrations(Model model) {
+        model.addAttribute("celebrations", celebrationRepository.findByActiveTrueOrderByEventDateDesc());
         return "celebrations";
     }
 
@@ -101,8 +119,12 @@ public class MainController {
         return "mission";
     }
 
+    @Autowired
+    private BranchRepository branchRepository;
+
     @GetMapping("/branches")
-    public String branches() {
+    public String branches(Model model) {
+        model.addAttribute("branches", branchRepository.findByActiveTrue());
         return "branches";
     }
 

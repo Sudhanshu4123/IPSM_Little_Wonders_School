@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Management - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --admin-primary: #ff4081;
+            --admin-secondary: #00bcd4;
+            --admin-bg: #f5f7fa;
+            --sidebar-width: 260px;
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--admin-bg);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .sidebar-header {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .sidebar-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+        .sidebar h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--admin-primary);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            flex: 1;
+        }
+        .nav-item a {
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .nav-item a:hover, .nav-item.active a {
+            background: #fff0f6;
+            color: var(--admin-primary);
+            border-left-color: var(--admin-primary);
+        }
+        .nav-item i {
+            width: 25px;
+            margin-right: 15px;
+            font-size: 1.1rem;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 30px;
+            width: calc(100% - var(--sidebar-width));
+        }
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--admin-primary);
+            cursor: pointer;
+        }
+        .btn-logout {
+            color: #ff5252;
+            text-decoration: none;
+            font-weight: 700;
+            background: #fff5f5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            display: block;
+            text-align: center;
+            margin: 0 20px 20px;
+        }
+        .btn-logout:hover {
+            background: #ff5252;
+            color: white;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+        .item-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        .item-table th {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            text-align: left;
+            color: #666;
+            font-weight: 700;
+        }
+        .item-table td {
+            padding: 15px 20px;
+            border-top: 1px solid #f1f1f1;
+            color: #444;
+        }
+        .due-amount {
+            color: #ff5252;
+            font-weight: 700;
+        }
+        .btn-action {
+            background: var(--admin-secondary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .top-bar {
+                padding: 15px 20px;
+            }
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+            .sidebar-overlay.active {
+                display: block;
+            }
+            .hide-mobile { display: none; }
+            .search-box input { width: 100% !important; margin-top: 10px; }
+            .fee-header { flex-direction: column; align-items: flex-start !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <img th:src="@{/images/ipsm_pre_logo.png}" alt="Logo" class="sidebar-logo">
+            <h2>Little Wonders Admin</h2>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a th:href="@{/admin/dashboard}"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li class="nav-item"><a th:href="@{/admin/branches}"><i class="fas fa-school"></i> Branches</a></li>
+            <li class="nav-item"><a th:href="@{/admin/gallery}"><i class="fas fa-images"></i> Gallery</a></li>
+            <li class="nav-item"><a th:href="@{/admin/blogs}"><i class="fas fa-newspaper"></i> Blogs</a></li>
+            <li class="nav-item"><a th:href="@{/admin/celebrations}"><i class="fas fa-calendar-star"></i> Celebrations</a></li>
+            <li class="nav-item"><a th:href="@{/admin/courses}"><i class="fas fa-book-open"></i> Courses</a></li>
+            <li class="nav-item active"><a th:href="@{/admin/fees}"><i class="fas fa-wallet"></i> Fees</a></li>
+            <li class="nav-item"><a th:href="@{/admin/admissions}"><i class="fas fa-user-graduate"></i> Admissions</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">Fee Management</h1>
+            <div class="admin-user" style="display: flex; align-items: center;">
+                <i class="fas fa-user-circle" style="font-size: 1.2rem; margin-right: 8px;"></i>
+                Admin
+            </div>
+        </div>
+
+        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.04); margin-bottom: 30px;">
+            <div class="fee-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-family: 'Fredoka One', cursive; color: var(--admin-primary); margin: 0; font-size: 1.2rem;">Student Fee Status</h2>
+                <div class="search-box" style="width: 100%; max-width: 300px;">
+                    <input type="text" placeholder="Search student..." style="padding: 10px 20px; border-radius: 10px; border: 1px solid #ddd; width: 100%; box-sizing: border-box;">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="item-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th class="hide-mobile">Reg No</th>
+                        <th>Dues</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.fullName}">Student Name</td>
+                        <td class="hide-mobile" th:text="${user.registrationNumber}">LW-000</td>
+                        <td class="due-amount">₹ <span th:text="${user.pendingFees}">0.00</span></td>
+                        <td>
+                            <form th:action="@{/admin/fees/update}" method="post" style="display: flex; gap: 5px; align-items: center;">
+                                <input type="hidden" name="userId" th:value="${user.id}">
+                                <input type="number" name="amount" th:value="${user.pendingFees}" style="padding: 5px; border-radius: 5px; border: 1px solid #ddd; width: 80px; font-size: 13px;">
+                                <button type="submit" class="btn-action" style="cursor: pointer; padding: 6px 10px;">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(users)}">
+                        <td colspan="4" style="text-align: center; color: #999;">No students found.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>

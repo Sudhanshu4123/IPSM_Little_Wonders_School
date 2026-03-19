@@ -148,40 +148,14 @@
         </div>
 
         <div class="gallery-grid">
-            <div class="gallery-item" data-category="activities">
-                <img th:src="@{/images/hero_preschool.png}" alt="Kids Painting">
-                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-            </div>
-            <div class="gallery-item" data-category="classroom">
-                <img th:src="@{/images/hero_preschool.png}" alt="Classroom Environment">
-                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-            </div>
-            <div class="gallery-item" data-category="activities">
-                <img th:src="@{/images/hero_preschool.png}" alt="Group Activity">
-                <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
-            </div>
-            <div class="gallery-item" data-category="classroom">
-                <img th:src="@{/images/hero_preschool.png}" alt="Learning Time">
+            <!-- Dynamic Gallery Items -->
+            <div th:each="item : ${galleryItems}" class="gallery-item" th:data-category="${#strings.toLowerCase(item.category == 'Facility' ? 'playarea' : (item.category == 'Others' ? 'activities' : (item.category == 'Event' ? 'events' : item.category)))}">
+                <img th:src="@{${item.imageUrl}}" th:alt="${item.title}">
                 <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
 
-            <!-- Video Items -->
-            <div class="gallery-item" data-category="video" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
-                <img th:src="@{/images/hero_preschool.png}" alt="Video 1">
-                <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
-            </div>
-            <div class="gallery-item" data-category="video" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
-                <img th:src="@{/images/hero_preschool.png}" alt="Video 2">
-                <div class="gallery-overlay"><i class="fas fa-play-circle"></i></div>
-            </div>
-
-            <div class="gallery-item" data-category="events"
-                style="background: var(--accent); display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-images fa-3x" style="color: white;"></i>
-            </div>
-            <div class="gallery-item" data-category="playarea"
-                style="background: var(--primary); display: flex; align-items: center; justify-content: center;">
-                <i class="fas fa-camera fa-3x" style="color: white;"></i>
+            <div th:if="${#lists.isEmpty(galleryItems)}" style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;">
+                No photos available in the gallery yet.
             </div>
         </div>
     </section>

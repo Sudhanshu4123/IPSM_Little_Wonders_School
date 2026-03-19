@@ -31,25 +31,28 @@
 
             <div class="branches-grid"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
-                <!-- Main Branch -->
-                <div class="branch-card"
+                <!-- Dynamic Branches -->
+                <div th:each="branch : ${branches}" class="branch-card"
                     style="background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #eee; transition: transform 0.3s ease;">
-                    <div class="branch-image"
-                        style="height: 200px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff;">
-                        <i class="fas fa-school" style="font-size: 5rem; opacity: 0.3;"></i>
-                    </div>
                     <div class="branch-info" style="padding: 30px;">
-                        <h3 style="color: #b71677; margin-bottom: 15px; font-size: 1.5rem;">Goyla Dairy Branch (Main)
-                        </h3>
-                        <p style="margin-bottom: 10px; color: #555;"><i class="fas fa-map-marker-alt"
-                                style="color: var(--primary); margin-right: 10px;"></i> Goyla Dairy (Goladeri), New
-                            Delhi</p>
-                        <p style="margin-bottom: 10px; color: #555;"><i class="fas fa-phone"
-                                style="color: var(--primary); margin-right: 10px;"></i> +91 76783 77155</p>
-                        <p style="margin-bottom: 20px; color: #555;"><i class="fas fa-envelope"
-                                style="color: var(--primary); margin-right: 10px;"></i> ipsmlittlewonder@gmail.com</p>
-                        <a href="https://maps.google.com" target="_blank" class="btn btn-primary"
-                            style="width: 100%; border-radius: 10px;">View on Map</a>
+                        <img th:if="${branch.imagePath}" th:src="@{${branch.imagePath}}" th:alt="${branch.name}"
+                            style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; box-shadow: var(--shadow);">
+                        <h2 th:text="${branch.name}" style="color: #b71677; margin-bottom: 10px; font-size: 1.5rem;">Branch Name</h2>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;" th:text="${branch.description}">Explore our state-of-the-art facilities at this branch.</p>
+                        <p style="color: var(--secondary); font-weight: 700; margin-bottom: 10px;" th:text="${branch.address}">123 Education Lane, Delhi</p>
+
+                        <div class="branch-contact" style="margin-top: 20px;">
+                            <div class="contact-item" style="display: flex; align-items: center; margin-bottom: 8px; color: #555;">
+                                <i class="fas fa-phone" style="color: var(--primary); margin-right: 10px;"></i>
+                                <span th:text="${branch.contactNumber}">9876543210</span>
+                            </div>
+                            <div class="contact-item" style="display: flex; align-items: center; margin-bottom: 20px; color: #555;">
+                                <i class="fas fa-envelope" style="color: var(--primary); margin-right: 10px;"></i>
+                                <span th:text="${branch.email}">main@littlewonders.com</span>
+                            </div>
+                        </div>
+                        <a th:if="${branch.mapLink}" th:href="${branch.mapLink}" target="_blank" class="btn btn-primary"
+                            style="width: 100%; border-radius: 10px; display: block; text-align: center; margin-top: 10px;">View on Map</a>
                     </div>
                 </div>
 

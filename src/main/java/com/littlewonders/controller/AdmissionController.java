@@ -45,11 +45,13 @@ public class AdmissionController {
             @RequestParam("aadharCard") MultipartFile aadharCard,
             @RequestParam("panCard") MultipartFile panCard,
             @RequestParam("childPhoto") MultipartFile childPhoto,
-            @RequestParam("birthCertificate") MultipartFile birthCertificate) {
+            @RequestParam("birthCertificate") MultipartFile birthCertificate,
+            @RequestParam("session") String session) {
 
         Map<String, String> response = new HashMap<>();
         try {
             AdmissionApplication app = new AdmissionApplication();
+            app.setSession(session);
             app.setFatherName(fatherName);
             app.setMotherName(motherName);
             app.setFatherPhone(fatherPhone);

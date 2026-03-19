@@ -1,4 +1,5 @@
 package com.littlewonders.service;
+// Refreshed
 
 import com.littlewonders.model.AdmissionApplication;
 import com.littlewonders.repository.AdmissionRepository;
@@ -15,6 +16,15 @@ public class AdmissionService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private com.littlewonders.repository.UserRepository userRepository;
+
+    @Autowired
+    private com.littlewonders.repository.RoleRepository roleRepository;
+
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
     public AdmissionApplication processApplication(AdmissionApplication application,
             MultipartFile parentPhoto,
             MultipartFile aadharCard,
@@ -23,6 +33,26 @@ public class AdmissionService {
             MultipartFile birthCertificate) {
         // Save to database
         AdmissionApplication savedApplication = admissionRepository.save(application);
+
+        // Create User account for student panel
+        if (savedApplication.getFatherPhone() != null && !userRepository.existsByUsername(savedApplication.getFatherPhone())) {
+            com.littlewonders.model.User user = new com.littlewonders.model.User();
+            user.setUsername(savedApplication.getFatherPhone());
+            user.setPassword(passwordEncoder.encode("123456")); // Default password for new students
+            user.setFullName(savedApplication.getFirstName() + " " + savedApplication.getLastName());
+            user.setEmail(savedApplication.getEmail());
+            user.setPhone(savedApplication.getFatherPhone());
+            user.setRegistrationNumber("LW" + savedApplication.getId());
+            user.setPendingFees(0.0);
+
+            com.littlewonders.model.Role userRole = roleRepository.findByName("ROLE_USER").orElse(null);
+            if (userRole != null) {
+                java.util.Set<com.littlewonders.model.Role> roles = new java.util.HashSet<>();
+                roles.add(userRole);
+                user.setRoles(roles);
+            }
+            userRepository.save(user);
+        }
 
         // Send email
         try {

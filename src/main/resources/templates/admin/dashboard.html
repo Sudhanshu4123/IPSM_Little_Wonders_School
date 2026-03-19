@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --admin-primary: #ff4081;
+            --admin-secondary: #00bcd4;
+            --admin-bg: #f5f7fa;
+            --sidebar-width: 260px;
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--admin-bg);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .sidebar-header {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .sidebar-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+        .sidebar h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--admin-primary);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            flex: 1;
+        }
+        .nav-item a {
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .nav-item a:hover, .nav-item.active a {
+            background: #fff0f6;
+            color: var(--admin-primary);
+            border-left-color: var(--admin-primary);
+        }
+        .nav-item i {
+            width: 25px;
+            margin-right: 15px;
+            font-size: 1.1rem;
+        }
+        /* Dropdown styles */
+        .nav-dropdown-toggle {
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #555;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            user-select: none;
+        }
+        .nav-dropdown-toggle:hover, .nav-dropdown-toggle.open {
+            background: #fff0f6;
+            color: var(--admin-primary);
+            border-left-color: var(--admin-primary);
+        }
+        .nav-dropdown-toggle .arrow {
+            margin-left: auto;
+            font-size: 0.75rem;
+            transition: transform 0.3s;
+        }
+        .nav-dropdown-toggle.open .arrow {
+            transform: rotate(90deg);
+        }
+        .nav-submenu {
+            list-style: none;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: #fff8fc;
+        }
+        .nav-submenu.open {
+            max-height: 300px;
+        }
+        .nav-submenu li a {
+            padding: 12px 30px 12px 55px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+        .nav-submenu li a:hover, .nav-submenu li.active a {
+            background: #fff0f6;
+            color: var(--admin-primary);
+            border-left-color: var(--admin-primary);
+        }
+        .nav-submenu li i {
+            width: 20px;
+            margin-right: 10px;
+        }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 30px;
+            width: calc(100% - var(--sidebar-width));
+        }
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--admin-primary);
+            cursor: pointer;
+        }
+        .welcome-msg h1 {
+            color: #333;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: white;
+        }
+        .icon-blue { background: #00bcd4; }
+        .icon-pink { background: #ff4081; }
+        .icon-orange { background: #ff9800; }
+        .icon-purple { background: #9c27b0; }
+        .stat-info h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .stat-info p {
+            margin: 2px 0 0 0;
+            color: #777;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .btn-logout {
+            color: #ff5252;
+            text-decoration: none;
+            font-weight: 700;
+            background: #fff5f5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            display: block;
+            text-align: center;
+            margin: 0 20px 20px;
+        }
+        .btn-logout:hover {
+            background: #ff5252;
+            color: white;
+        }
+        .btn-quick {
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            color: white;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .top-bar {
+                padding: 15px 20px;
+            }
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <img th:src="@{/images/ipsm_pre_logo.png}" alt="Logo" class="sidebar-logo">
+            <h2>Little Wonders Admin</h2>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item active"><a th:href="@{/admin/dashboard}"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li class="nav-item"><a th:href="@{/admin/branches}"><i class="fas fa-school"></i> Branches</a></li>
+            <li class="nav-item"><a th:href="@{/admin/gallery}"><i class="fas fa-images"></i> Gallery</a></li>
+            <li class="nav-item"><a th:href="@{/admin/blogs}"><i class="fas fa-newspaper"></i> Blogs</a></li>
+            <li class="nav-item"><a th:href="@{/admin/celebrations}"><i class="fas fa-calendar-star"></i> Celebrations</a></li>
+            <li class="nav-item"><a th:href="@{/admin/courses}"><i class="fas fa-book-open"></i> Courses</a></li>
+            <li class="nav-item"><a th:href="@{/admin/fees}"><i class="fas fa-wallet"></i> Fees</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <h1>Admin Dashboard</h1>
+            <div style="display: flex; align-items: center;">
+                <i class="fas fa-user-circle" style="font-size: 1.2rem; margin-right: 8px;"></i>
+                <span class="admin-name-text">Admin</span>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon icon-blue">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 th:text="${totalStudents}">0</h3>
+                    <p>Enrolled Students</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-pink">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 th:text="${totalBlogs}">0</h3>
+                    <p>Total Blogs</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #4caf50;">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 th:text="${totalGalleryItems}">0</h3>
+                    <p>Photos Uploaded</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-orange">
+                    <i class="fas fa-school"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 th:text="${totalBranches}">0</h3>
+                    <p>Branches</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <div style="display: flex; align-items: center;">
+                        <div class="stat-icon icon-orange" style="margin-right: 15px;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 th:text="${totalCourses}">0</h3>
+                            <p>Active Courses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon icon-purple">
+                    <i class="fas fa-calendar-star"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 th:text="${totalCelebrations}">0</h3>
+                    <p>Celebrations</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.04);">
+            <h2 style="color: #333; font-family: 'Fredoka One', cursive; font-size: 1.2rem; margin-top: 0;">Quick Actions</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
+                <a th:href="@{/admin/blogs}" class="btn-quick" style="background: var(--admin-primary);">
+                    <i class="fas fa-plus-circle"></i> Add New Blog
+                </a>
+                <a th:href="@{/admin/gallery}" class="btn-quick" style="background: #4caf50;">
+                    <i class="fas fa-plus-circle"></i> Upload Photo
+                </a>
+                <a th:href="@{/admin/branches}" class="btn-quick" style="background: #ff9800;">
+                    <i class="fas fa-plus-circle"></i> Manage Branches
+                </a>
+                <a th:href="@{/admin/courses}" class="btn-quick" style="background: var(--admin-secondary);">
+                    <i class="fas fa-plus-circle"></i> Manage Courses
+                </a>
+                <a th:href="@{/admin/celebrations}" class="btn-quick" style="background: #9c27b0;">
+                    <i class="fas fa-plus-circle"></i> Add Celebration
+                </a>
+            </div>
+        </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: #333; font-family: 'Fredoka One', cursive; font-size: 1.2rem; margin: 0;">Recent Security Alerts</h2>
+                <span style="font-size: 0.8rem; color: #777;">Last 10 Login Attempts</span>
+            </div>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 2px solid #f1f1f1;">
+                            <th style="padding: 12px; color: #666;">Time</th>
+                            <th style="padding: 12px; color: #666;">Username</th>
+                            <th style="padding: 12px; color: #666;">IP Address</th>
+                            <th style="padding: 12px; color: #666;">Status</th>
+                            <th style="padding: 12px; color: #666;">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="log : ${securityLogs}" style="border-bottom: 1px solid #f8f9fa;">
+                            <td style="padding: 12px; color: #555;" th:text="${log.attemptedAt}">2026-03-19</td>
+                            <td style="padding: 12px; font-weight: 600;" th:text="${log.username}">admin</td>
+                            <td style="padding: 12px; color: #777;" th:text="${log.ipAddress}">127.0.0.1</td>
+                            <td style="padding: 12px;">
+                                <span th:if="${log.status == 'SUCCESS'}" style="color: #2e7d32; background: #e8f5e9; padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">
+                                    <i class="fas fa-check-circle"></i> SUCCESS
+                                </span>
+                                <span th:if="${log.status == 'FAILED'}" style="color: #c62828; background: #ffebee; padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 0.75rem;">
+                                    <i class="fas fa-exclamation-triangle"></i> FAILED
+                                </span>
+                            </td>
+                            <td style="padding: 12px; color: #666; font-style: italic;" th:text="${log.details}">Invalid password</td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(securityLogs)}">
+                            <td colspan="5" style="padding: 30px; text-align: center; color: #999;">No security events recorded yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        function toggleStudentMenu() {
+            const toggle = document.getElementById('studentDropdownToggle');
+            const menu = document.getElementById('studentSubMenu');
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+
+        // Auto-open dropdown if on a student management page
+        const path = window.location.pathname;
+        if (path.includes('/admin/student') || path.includes('/admin/admission')) {
+            document.getElementById('studentDropdownToggle').classList.add('open');
+            document.getElementById('studentSubMenu').classList.add('open');
+        }
+    </script>
+</body>
+</html>

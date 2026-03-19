@@ -35,58 +35,24 @@
 
         <div class="blog-grid"
             style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
-            <!-- Blog Card 1 -->
-            <div class="blog-card"
+            
+            <div th:each="blog : ${blogs}" class="blog-card"
                 style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
                 <div class="blog-img"
-                    style="height: 250px; background: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                    th:style="'height: 250px; background: url(' + @{${blog.blogImagePath ?: '/images/hero_preschool.png'}} + '); background-size: cover; background-position: center;'">
                 </div>
                 <div class="blog-content" style="padding: 25px;">
-                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;">Education | Jan 25,
-                        2026</span>
-                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;">The Importance of Play-Based Learning
-                    </h3>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Discover why playing is essential for your
-                        child's brain development and social skills...</p>
+                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;" 
+                          th:text="(${blog.authorName} ?: 'IPSM') + ' | ' + ${#temporals.format(blog.publishedDate, 'MMM dd, yyyy')}">Education | Jan 25, 2026</span>
+                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;" th:text="${blog.title}">Blog Title</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;" th:text="${#strings.abbreviate(blog.content, 150)}">Discover why playing is essential for your child's brain development...</p>
                     <a href="#" style="color: var(--primary); font-weight: 700;">Read More <i class="fas fa-arrow-right"
                             style="margin-left: 5px;"></i></a>
                 </div>
             </div>
 
-            <!-- Blog Card 2 -->
-            <div class="blog-card"
-                style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
-                <div class="blog-img"
-                    style="height: 250px; background: url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center;">
-                </div>
-                <div class="blog-content" style="padding: 25px;">
-                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;">Parenting | Jan 15,
-                        2026</span>
-                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;">Preparing Your Child for Preschool
-                    </h3>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Tips and tricks for a smooth transition
-                        from home to school for your little one...</p>
-                    <a href="#" style="color: var(--primary); font-weight: 700;">Read More <i class="fas fa-arrow-right"
-                            style="margin-left: 5px;"></i></a>
-                </div>
-            </div>
-
-            <!-- Blog Card 3 -->
-            <div class="blog-card"
-                style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
-                <div class="blog-img"
-                    style="height: 250px; background: url('https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=800&auto=format&fit=crop'); background-size: cover; background-position: center;">
-                </div>
-                <div class="blog-content" style="padding: 25px;">
-                    <span style="color: var(--primary); font-weight: 700; font-size: 0.9rem;">Events | Jan 05,
-                        2026</span>
-                    <h3 style="margin: 15px 0; font-size: 1.4rem; color: #b71677;">Grand Annual Sports Day Highlights
-                    </h3>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">A celebration of spirit, coordination, and
-                        team effort by our little athletes...</p>
-                    <a href="#" style="color: var(--primary); font-weight: 700;">Read More <i class="fas fa-arrow-right"
-                            style="margin-left: 5px;"></i></a>
-                </div>
+            <div th:if="${#lists.isEmpty(blogs)}" style="grid-column: 1/-1; text-align: center; padding: 50px;">
+                <p style="color: #999;">Stay tuned! We'll be posting updates soon.</p>
             </div>
         </div>
     </section>

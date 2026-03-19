@@ -895,24 +895,6 @@ section {
     box-shadow: var(--shadow);
 }
 
-/* Testimonials */
-.testimonials {
-    background: var(--light);
-}
-
-.testimonial-card {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    margin: 10px;
-}
-
-.stars {
-    color: var(--accent);
-    margin-bottom: 10px;
-}
-
 /* Program Image Overlays */
 .detail-image {
     position: relative;

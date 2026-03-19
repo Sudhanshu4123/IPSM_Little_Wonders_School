@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Students - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --admin-primary: #ff4081;
+            --admin-secondary: #00bcd4;
+            --admin-bg: #f5f7fa;
+            --sidebar-width: 260px;
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--admin-bg);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .sidebar-header {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .sidebar-logo {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+        .sidebar h2 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--admin-primary);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            flex: 1;
+        }
+        .nav-item a {
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        .nav-item a:hover, .nav-item.active a {
+            background: #fff0f6;
+            color: var(--admin-primary);
+            border-left-color: var(--admin-primary);
+        }
+        .nav-item i { width: 25px; margin-right: 15px; font-size: 1.1rem; }
+        .nav-dropdown-toggle { padding: 15px 30px; display: flex; align-items: center; cursor: pointer; color: #555; font-weight: 600; transition: all 0.3s; border-left: 4px solid transparent; user-select: none; }
+        .nav-dropdown-toggle:hover, .nav-dropdown-toggle.open { background: #fff0f6; color: var(--admin-primary); border-left-color: var(--admin-primary); }
+        .nav-dropdown-toggle .arrow { margin-left: auto; font-size: 0.75rem; transition: transform 0.3s; }
+        .nav-dropdown-toggle.open .arrow { transform: rotate(90deg); }
+        .nav-submenu { list-style: none; padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: #fff8fc; }
+        .nav-submenu.open { max-height: 300px; }
+        .nav-submenu li a { padding: 12px 30px 12px 55px; display: flex; align-items: center; text-decoration: none; color: #666; font-weight: 600; font-size: 0.9rem; border-left: 4px solid transparent; transition: all 0.3s; }
+        .nav-submenu li a:hover, .nav-submenu li.active a { background: #fff0f6; color: var(--admin-primary); border-left-color: var(--admin-primary); }
+        .nav-submenu li i { width: 20px; margin-right: 10px; }
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 30px;
+            width: calc(100% - var(--sidebar-width));
+        }
+        .top-bar {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--admin-primary);
+            cursor: pointer;
+        }
+        .btn-logout {
+            color: #ff5252;
+            text-decoration: none;
+            font-weight: 700;
+            background: #fff5f5;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            display: block;
+            text-align: center;
+            margin: 0 20px 20px;
+        }
+        .btn-logout:hover {
+            background: #ff5252;
+            color: white;
+        }
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+        }
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid #f1f1f1;
+            color: #666;
+            font-weight: 700;
+        }
+        .student-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f8f9fa;
+            color: #444;
+        }
+        .roll-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .credentials-info {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.9rem;
+            color: #856404;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; padding: 20px; }
+            .mobile-toggle { display: block; }
+            .hide-mobile { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar" id="adminSidebar">
+        <div class="sidebar-header">
+            <img th:src="@{/images/ipsm_pre_logo.png}" alt="Logo" class="sidebar-logo">
+            <h2>Little Wonders Admin</h2>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a th:href="@{/admin/dashboard}"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li class="nav-item"><a th:href="@{/admin/branches}"><i class="fas fa-school"></i> Branches</a></li>
+            <li class="nav-item"><a th:href="@{/admin/gallery}"><i class="fas fa-images"></i> Gallery</a></li>
+            <li class="nav-item"><a th:href="@{/admin/blogs}"><i class="fas fa-newspaper"></i> Blogs</a></li>
+            <li class="nav-item"><a th:href="@{/admin/celebrations}"><i class="fas fa-calendar-star"></i> Celebrations</a></li>
+            <li class="nav-item"><a th:href="@{/admin/courses}"><i class="fas fa-book-open"></i> Courses</a></li>
+            <li class="nav-item"><a th:href="@{/admin/fees}"><i class="fas fa-wallet"></i> Fees</a></li>
+        </ul>
+        <a th:href="@{/logout}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">Student Management</h1>
+            <div style="display: flex; align-items: center; color: #666;">
+                <i class="fas fa-user-circle" style="font-size: 1.5rem; margin-right: 10px;"></i>
+                <span>Admin</span>
+            </div>
+        </div>
+
+        <div class="credentials-info">
+            <i class="fas fa-info-circle"></i> 
+            <strong>Student Credentials:</strong> Roll Number is the <b>Username</b>. Date of Birth (digits only) is the default <b>Password</b> (e.g. 01012015).
+        </div>
+
+        <!-- Direct Enrollment Form -->
+        <div class="table-card" id="registrationForm" style="display: none; margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-family: 'Fredoka One', cursive; color: var(--admin-primary); font-size: 1.2rem; margin: 0;">Direct Registration</h2>
+                <button onclick="toggleForm()" class="btn-view" style="background: none; border: none; cursor: pointer;"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+            <form th:action="@{/admin/students/register}" method="post">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Full Name</label>
+                        <input type="text" name="fullName" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Date of Birth (DD-MM-YYYY)</label>
+                        <input type="text" name="dob" placeholder="01-01-2015" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Email</label>
+                        <input type="email" name="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Phone</label>
+                        <input type="tel" name="phone" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600;">Admission Session</label>
+                        <select name="session" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                            <option value="">Select Session</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" style="margin-top: 20px; background: var(--admin-primary); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer;">
+                    Register Student
+                </button>
+            </form>
+        </div>
+
+        <div class="table-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-family: 'Fredoka One', cursive; color: #333; font-size: 1.2rem; margin: 0;">Active Students</h2>
+                <button onclick="toggleForm()" style="background: var(--admin-primary); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.9rem;">
+                    <i class="fas fa-plus"></i> Direct Registration
+                </button>
+            </div>
+            
+            <div style="overflow-x: auto;">
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>Roll No.</th>
+                            <th>Full Name</th>
+                            <th class="hide-mobile">DOB</th>
+                            <th>Username</th>
+                            <th>Session</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student : ${students}">
+                            <td><span class="roll-badge" th:text="${student.rollNumber}">IPSM0001</span></td>
+                            <td th:text="${student.fullName}">John Doe</td>
+                            <td class="hide-mobile" th:text="${student.dateOfBirth}">01/01/2015</td>
+                            <td th:text="${student.username}">IPSM0001</td>
+                            <td th:text="${student.session}">2024-25</td>
+                            <td>
+                                <a href="#" title="View Portfolio" style="color: #00bcd4; margin-right: 10px;"><i class="fas fa-id-card"></i></a>
+                                <a href="#" title="Edit" style="color: #ffc107; margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                                <a href="#" title="Delete" style="color: #ff5252;"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(students)}">
+                            <td colspan="5" style="text-align: center; color: #999; padding: 30px;">
+                                No students admitted yet. Admit students from the Admissions page.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script>
+        const mobileToggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('adminSidebar');
+        mobileToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        function toggleStudentMenu() {
+            const toggle = document.getElementById('studentDropdownToggle');
+            const menu = document.getElementById('studentSubMenu');
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+        }
+
+        function toggleForm() {
+            const form = document.getElementById('registrationForm');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                form.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

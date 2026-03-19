@@ -222,4 +222,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setInterval(nextSlide, slideInterval);
     }
+
+    // Dynamic Session Population
+    const populateSessions = () => {
+        const sessionSelects = document.querySelectorAll('select[name="session"]');
+        if (sessionSelects.length === 0) return;
+
+        const date = new Date();
+        const currentYear = date.getFullYear();
+        // If we are before April, the active session is still prevYear-currYear
+        // But usually schools look forward. Let's provide current and next 5 years.
+        const startYear = currentYear - 1;
+        
+        sessionSelects.forEach(select => {
+            const currentValue = select.getAttribute('data-selected') || "";
+            // preserve the first "Select" option if it exists
+            const options = select.options;
+            let hasDefault = false;
+            let defaultText = "Select Session";
+            
+            if (options.length > 0 && options[0].value === "") {
+                hasDefault = true;
+                defaultText = options[0].text;
+            }
+
+            select.innerHTML = '';
+            const defaultOpt = document.createElement('option');
+            defaultOpt.value = "";
+            defaultOpt.textContent = defaultText;
+            select.appendChild(defaultOpt);
+
+            for (let i = 0; i < 6; i++) {
+                const year = startYear + i;
+                const sessionText = `${year}-${(year + 1).toString().slice(-2)}`;
+                const opt = document.createElement('option');
+                opt.value = sessionText;
+                opt.textContent = sessionText;
+                if (sessionText === currentValue) opt.selected = true;
+                select.appendChild(opt);
+            }
+        });
+    };
+    populateSessions();
 });
