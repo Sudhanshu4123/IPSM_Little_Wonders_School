@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Print Receipt - IPSM Little Wonders</title>
+    <style>
+        /* A4 Page Formatting for Print */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e0e0e0;
+            /* Gray background outside print area */
+            display: flex;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #000;
+        }
+
+        /* The actual A4 receipt container */
+        .receipt-container {
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            /* Placeholder background image. Make sure image is at src/main/resources/static/images/receipt-bg.jpeg */
+            background-image: url('/images/receipt-bg.jpeg');
+            background-size: 210mm 297mm;
+            /* Exact fit */
+            background-repeat: no-repeat;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            /* Scaling for screen preview */
+            transform-origin: top center;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        @media print {
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .receipt-container {
+                box-shadow: none;
+                margin: 0;
+                transform: scale(1);
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Overlay Text Styles */
+        .overlay-text {
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* ----- Editable Positioning (Adjust top/left if needed) ----- */
+        .pos-sr-no {
+            top: 69mm;
+            left: 28mm;
+        }
+
+        .pos-date {
+            top: 70mm;
+            left: 165mm;
+        }
+
+        .pos-student-name {
+            top: 77mm;
+            left: 55mm;
+            text-transform: uppercase;
+        }
+
+        .pos-reg-no {
+            top: 78mm;
+            left: 165mm;
+        }
+
+        .pos-class {
+            top: 84.5mm;
+            left: 28mm;
+            text-transform: uppercase;
+        }
+
+        /* Amount columns for specific rows */
+        .amount-col {
+            left: 155mm;
+            text-align: center;
+            width: 50mm;
+        }
+
+        .pos-amount-row1 {
+            top: 100mm;
+        }
+
+        /* Registration */
+        .pos-amount-row2 {
+            top: 118mm;
+        }
+
+        /* Admission */
+        .pos-amount-row3 {
+            top: 126mm;
+        }
+
+        /* Tution */
+        .pos-amount-row4 {
+            top: 137mm;
+        }
+
+        /* Uniform */
+        .pos-amount-row5 {
+            top: 148mm;
+        }
+
+        /* Books */
+        .pos-amount-row6 {
+            top: 159mm;
+        }
+
+        /* Bag & Stationary */
+        .pos-amount-row7 {
+            top: 170mm;
+        }
+
+        /* ID Card */
+        .pos-amount-row8 {
+            top: 181mm;
+        }
+
+        /* Festival */
+        .pos-amount-row9 {
+            top: 192mm;
+        }
+
+        /* Extra Curricular */
+        .pos-amount-row10 {
+            top: 199mm;
+        }
+
+        /* Album */
+        .pos-amount-row11 {
+            top: 210mm;
+        }
+
+        /* Transport */
+        .pos-amount-row12 {
+            top: 221mm;
+        }
+
+        /* Miscellaneous */
+
+        .pos-grand-total {
+            top: 232mm;
+            left: 155mm;
+            font-size: 16px;
+            width: 50mm;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        /* Footer details */
+        .pos-words {
+            top: 244mm;
+            left: 57mm;
+            font-style: italic;
+            font-weight: bold;
+            width: 130mm;
+        }
+
+        .pos-payment-mode {
+            top: 252mm;
+            left: 53mm;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .pos-received-by {
+            top: 260mm;
+            left: 48mm;
+            font-weight: bold;
+        }
+
+        .pos-remarks {
+            top: 277mm;
+            left: 40mm;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Print Controls for Dev */
+        .print-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .print-controls button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Dev Controls -->
+    <div class="print-controls no-print">
+        <button onclick="window.print()"><i class="fas fa-print"></i> Print Receipt</button>
+        <p style="margin-top: 10px; font-size: 12px; max-width: 200px;">Background image must be saved as
+            <b>receipt-bg.jpg</b> in static/images/
+        </p>
+    </div>
+
+    <!-- A4 Receipt Wrapper -->
+    <div class="receipt-container">
+
+        <!-- Header Data -->
+        <div class="overlay-text pos-sr-no" th:text="${'TXN-' + transaction.id}">TXN-1234</div>
+        <div class="overlay-text pos-date" th:text="${#temporals.format(transaction.paymentDate, 'dd-MM-yyyy')}">
+            01-01-2024</div>
+        <div class="overlay-text pos-student-name" th:text="${student.fullName}">JOHN DOE</div>
+        <div class="overlay-text pos-reg-no" th:text="${student.rollNumber}">IPSM0001</div>
+        <div class="overlay-text pos-class" th:text="${student.course ?: 'N/A'}">PREP</div>
+
+        <!-- Dynamic Table Mapping Logic -->
+        <!-- We check the feeType string to place the amount in the correct row -->
+
+        <div th:if="${#strings.contains(transaction.feeType, 'Registration')}"
+            class="overlay-text amount-col pos-amount-row1" th:text="${transaction.amount}"></div>
+        <div th:if="${#strings.contains(transaction.feeType, 'Admission')}"
+            class="overlay-text amount-col pos-amount-row2" th:text="${transaction.amount}"></div>
+        <div th:if="${#strings.contains(transaction.feeType, 'Tution')}" class="overlay-text amount-col pos-amount-row3"
+            th:text="${transaction.amount}"></div>
+        <div th:if="${#strings.contains(transaction.feeType, 'Uniform')}"
+            class="overlay-text amount-col pos-amount-row4" th:text="${transaction.amount}"></div>
+        <div th:if="${#strings.contains(transaction.feeType, 'Books')}" class="overlay-text amount-col pos-amount-row5"
+            th:text="${transaction.amount}"></div>
+        <!-- Bag/Id Card/etc are not in the current fee select options, but we keep the mapping available --><!--
+        <div th:if="${transaction.feeType == 'Bag & Stationary'}" class="overlay-text amount-col pos-amount-row6" th:text="${transaction.amount}"></div>
+        -->
+        <div th:if="${#strings.contains(transaction.feeType, 'Exam')}" class="overlay-text amount-col pos-amount-row12"
+            th:text="${transaction.amount}"></div>
+
+        <!-- Grand Total -->
+        <div class="overlay-text pos-grand-total" th:text="${transaction.amount}">5000</div>
+
+        <!-- Footer Data -->
+        <div class="overlay-text pos-words" id="amountInWords"></div>
+        <div class="overlay-text pos-payment-mode" th:text="${transaction.paymentMode}">CASH</div>
+        <div class="overlay-text pos-received-by">Admin</div>
+        <div class="overlay-text pos-remarks"
+            th:text="${transaction.month != 'N/A' ? 'Fee for ' + transaction.month : 'One-Time Payment'}"></div>
+
+    </div>
+
+    <!-- JavaScript to trigger Auto Print and Numbers to Words -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var rawAmount = /*[[${transaction.amount}]]*/ 0;
+
+        function inWords(num) {
+            var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+            var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            if ((num = num.toString()).length > 9) return 'overflow';
+            n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+            if (!n) return; var str = '';
+            str += (n[1] != 0) ? (a[Number(n[1])] || b[n[1][0]] + ' ' + a[n[1][1]]) + 'Crore ' : '';
+            str += (n[2] != 0) ? (a[Number(n[2])] || b[n[2][0]] + ' ' + a[n[2][1]]) + 'Lakh ' : '';
+            str += (n[3] != 0) ? (a[Number(n[3])] || b[n[3][0]] + ' ' + a[n[3][1]]) + 'Thousand ' : '';
+            str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
+            str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'Rupees Only' : 'Rupees Only';
+            return str;
+        }
+
+        document.getElementById('amountInWords').textContent = inWords(rawAmount).toUpperCase();
+
+        // Trigger print automatically after a short delay
+        window.onload = function () {
+            setTimeout(function () {
+                window.print();
+            }, 500);
+        };
+        /*]]>*/
+    </script>
+</body>
+
+</html>

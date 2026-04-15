@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Biodata - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .profile-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 50px;
+            border: 1px solid #dee2e6;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-header {
+            width: 100%;
+            border-bottom: 2px solid #eee;
+        }
+
+        .profile-header img {
+            width: 100%;
+            display: block;
+        }
+
+        .biodata-title {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .student-main-section {
+            display: grid;
+            grid-template-columns: 1fr 180px;
+            padding: 30px;
+            gap: 40px;
+            background: #fff;
+        }
+
+        .student-photo-container {
+            text-align: right;
+        }
+
+        .student-photo {
+            width: 180px;
+            height: 200px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 3px solid #eee;
+        }
+
+        .section-box {
+            padding: 0 30px 30px;
+        }
+
+        .section-title {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 15px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px 30px;
+        }
+
+        .info-item {
+            display: flex;
+            border-bottom: 1px solid #f1f1f1;
+            padding-bottom: 8px;
+        }
+
+        .info-label {
+            width: 140px;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .info-value {
+            color: #111;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .doc-link:hover {
+            background: #eee;
+        }
+
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .fee-table th {
+            text-align: left;
+            padding: 10px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #eee;
+        }
+
+        .fee-table td {
+            padding: 10px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0mm;
+            }
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                background: #fff;
+            }
+            .sidebar, .top-bar, .btn-back { 
+                display: none !important; 
+            }
+            .main-content { 
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            .profile-container { 
+                box-shadow: none !important; 
+                border: none !important; 
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+            }
+            .student-main-section {
+                padding: 20px 40px !important;
+                gap: 20px !important;
+            }
+            .section-box {
+                padding: 0 40px 15px !important;
+            }
+            .biodata-title {
+                background: #eee !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <h1 style="margin: 0; font-size: 1.1rem; color: #333;">Student Database Records</h1>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="window.print()" class="btn-submit" style="background: #2196f3; padding: 8px 15px; font-size: 0.85rem;">
+                    <i class="fas fa-print"></i> Print Records
+                </button>
+                <a th:href="@{/admin/students}" class="btn-submit btn-back" style="background: #666; padding: 8px 15px; font-size: 0.85rem; text-decoration: none;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
+        </div>
+
+        <div class="profile-container" th:if="${student != null}">
+            <!-- Header Image -->
+            <div class="profile-header">
+                <img th:src="@{/images/school-header.jpeg}" alt="IPSM Header">
+            </div>
+
+            <div class="biodata-title">Student Profile & Registration Card</div>
+
+            <!-- Student Basic Info -->
+            <div class="student-main-section">
+                <div class="info-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="info-item"><span class="info-label">Full Name:</span> <span class="info-value" th:text="${student.fullName}">John Doe</span></div>
+                    <div class="info-item"><span class="info-label">Roll Number:</span> <span class="info-value" th:text="${student.rollNumber}">1001</span></div>
+                    <div class="info-item"><span class="info-label">Registration No:</span> <span class="info-value" th:text="${student.rollNumber}">1001</span></div>
+                    <div class="info-item"><span class="info-label">Admission Session:</span> <span class="info-value" th:text="${student.session}">2024-25</span></div>
+                    <div class="info-item"><span class="info-label">Course Applied:</span> <span class="info-value" th:text="${student.course}">Toddler</span></div>
+                    <div class="info-item"><span class="info-label">Date of Birth:</span> <span class="info-value" th:text="${student.dateOfBirth}">01-01-2020</span></div>
+                    <div class="info-item"><span class="info-label">Current Age:</span> <span class="info-value" th:text="${student.age + ' Years'}">4 Years</span></div>
+                    <div class="info-item"><span class="info-label">Gender / Blood:</span> <span class="info-value" th:text="${student.gender + ' / ' + student.bloodGroup}">Male / O+</span></div>
+                </div>
+
+                <div class="student-photo-container">
+                    <img th:src="${student.childPhotoPath != null ? student.childPhotoPath : '/images/default-student.png'}" 
+                         class="student-photo" alt="Student Photo">
+                    <div style="margin-top: 10px;">
+                        <span style="font-size: 0.7rem; color: #999; font-weight: 700; text-transform: uppercase;">Student Signature</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parent Info Section -->
+            <div class="section-box">
+                <div class="info-grid">
+                    <div class="info-item"><span class="info-label">Father's Name:</span> <span class="info-value" th:text="${student.fatherName}">Father Name</span></div>
+                    <div class="info-item"><span class="info-label">Mother's Name:</span> <span class="info-value" th:text="${student.motherName}">Mother Name</span></div>
+                    <div class="info-item"><span class="info-label">Father Phone:</span> <span class="info-value" th:text="${student.phone}">1234567890</span></div>
+                    <div class="info-item"><span class="info-label">Mother Phone:</span> <span class="info-value" th:text="${student.motherPhone}">0987654321</span></div>
+                    <div class="info-item"><span class="info-label">Father Occupation:</span> <span class="info-value" th:text="${student.fatherOccupation}">Service</span></div>
+                    <div class="info-item"><span class="info-label">Mother Occupation:</span> <span class="info-value" th:text="${student.motherOccupation}">Home Maker</span></div>
+                    <div class="info-item"><span class="info-label">Total Children:</span> <span class="info-value" th:text="${student.totalChildren}">1</span></div>
+                    <div class="info-item"><span class="info-label">Email Address:</span> <span class="info-value" th:text="${student.email}">email@test.com</span></div>
+                </div>
+                <div class="info-item" style="margin-top: 15px;">
+                    <span class="info-label" style="width: 140px;">Residential Address:</span> 
+                    <span class="info-value" th:text="${student.address}">House No, Street Name, City</span>
+                </div>
+            </div>
+
+            <div style="padding: 20px 30px; border-top: 1px solid #eee; background: #fafafa; font-size: 0.75rem; color: #999; text-align: center;">
+                This is a system generated student record from IPSM Little Wonders Management portal.
+            </div>
+        </div>
+
+        <div th:unless="${student != null}" style="text-align: center; padding: 100px;">
+            <i class="fas fa-search" style="font-size: 3rem; color: #ccc;"></i>
+            <h3>No Records Found</h3>
+            <p>Please select a valid student from the management list.</p>
+        </div>
+    </div>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

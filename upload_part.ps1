@@ -1,7 +1,7 @@
 
 param($partNumber, $password, $serverIp)
 
-$partFile = "target\part$partNumber"
+$partFile = "$PSScriptRoot\target\part$partNumber"
 if (!(Test-Path $partFile)) { Write-Error "File $partFile not found"; return }
 
 Write-Host "Encoding part $partNumber..."

@@ -18,11 +18,15 @@ public class EmailService {
     @Value("${enquiry.recipient.email}")
     private String recipientEmail;
 
+    @Value("${spring.mail.username}")
+    private String senderEmail;
+
     public void sendEmailWithAttachments(String subject, String content, MultipartFile... attachments)
             throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+        helper.setFrom(senderEmail);
         helper.setTo(recipientEmail);
         helper.setSubject(subject);
         helper.setText(content, true); // true for HTML

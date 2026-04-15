@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Attendance - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        /* Attendance form specific styles */
+        .btn-submit { background: var(--admin-primary); color: white; border: none; padding: 12px 25px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { transform: scale(1.02); }
+        .form-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.04); margin-bottom: 30px; }
+        select, input { padding: 10px; border-radius: 8px; border: 2px solid #eee; font-family: inherit; font-size: 0.95rem; }
+        .attendance-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border-radius: 15px; overflow: hidden; }
+        .attendance-table th { background: #f8f9fa; padding: 15px; text-align: left; }
+        .attendance-table td { padding: 15px; border-bottom: 1px solid #f1f1f1; }
+        .status-radio { display: flex; gap: 20px; }
+        .radio-btn { display: flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 600; color: #555; }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h1>Daily Attendance</h1>
+        </div>
+
+        <div class="form-card">
+            <h2 style="font-family: 'Fredoka One', cursive; color: var(--admin-primary); margin-top: 0;">Select Session</h2>
+            <form th:action="@{/admin/attendance}" method="get" style="display: flex; gap: 15px; align-items: center;">
+                <select name="session" required>
+                    <option value="">Select Session</option>
+                    <option value="2024-25" th:selected="${session == '2024-25'}">2024-25</option>
+                    <option value="2025-26" th:selected="${session == '2025-26'}">2025-26</option>
+                </select>
+                <button type="submit" class="btn-submit" style="background: var(--admin-secondary);">Show Students</button>
+            </form>
+        </div>
+
+        <div class="form-card" th:if="${students != null}">
+            <h2 style="font-family: 'Fredoka One', cursive; color: var(--admin-primary); margin-top: 0;">Mark Attendance (<span th:text="${session}"></span>)</h2>
+            <div th:if="${param.success}" style="background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: 600;">
+                Attendance submitted successfully!
+            </div>
+            <form th:action="@{/admin/attendance/submit}" method="post">
+                <input type="hidden" name="session" th:value="${session}">
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight: 600;">Date:</label>
+                    <input type="date" name="date" required th:value="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}">
+                </div>
+
+                <table class="attendance-table">
+                    <thead>
+                        <tr>
+                            <th>Roll Number</th>
+                            <th>Student Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="student : ${students}">
+                            <td th:text="${student.rollNumber}">IPSM001</td>
+                            <td th:text="${student.fullName}">Student Name</td>
+                            <td>
+                                <div class="status-radio">
+                                    <label class="radio-btn"><input type="radio" th:name="'status_' + ${student.id}" value="PRESENT" checked> <span style="color: #2e7d32;">Present</span></label>
+                                    <label class="radio-btn"><input type="radio" th:name="'status_' + ${student.id}" value="ABSENT"> <span style="color: #c62828;">Absent</span></label>
+                                    <label class="radio-btn"><input type="radio" th:name="'status_' + ${student.id}" value="LATE"> <span style="color: #ff9800;">Late</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(students)}">
+                            <td colspan="3" style="text-align: center; padding: 30px; color: #999;">No students found in this session.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 25px;" th:if="${not #lists.isEmpty(students)}">
+                    <button type="submit" class="btn-submit">Submit Attendance</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

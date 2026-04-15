@@ -2,6 +2,7 @@ package com.littlewonders.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import com.littlewonders.repository.BlogRepository;
@@ -81,6 +82,11 @@ public class MainController {
         return "admission-form";
     }
 
+    @GetMapping("/admission/form/download")
+    public String downloadBlankForm() {
+        return "blank-admission-form";
+    }
+
     @GetMapping("/admission-faq")
     public String admissionFaq() {
         return "admission-faq";
@@ -93,6 +99,12 @@ public class MainController {
     public String blog(Model model) {
         model.addAttribute("blogs", blogRepository.findByActiveTrueOrderByPublishedDateDesc());
         return "blog";
+    }
+
+    @GetMapping("/blog/{id}")
+    public String blogDetail(@PathVariable Long id, Model model) {
+        blogRepository.findById(id).ifPresent(blog -> model.addAttribute("blog", blog));
+        return "blog-detail";
     }
 
     @GetMapping("/holidays")

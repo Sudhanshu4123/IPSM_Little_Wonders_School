@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Wise Fee Summary - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        .filter-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+            border: 1px solid #f1f1f1;
+        }
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .filter-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+        }
+        .btn-view {
+            background: var(--admin-primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .transaction-card {
+            background: white;
+            padding: 0;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            overflow: hidden;
+            border: 1px solid #f1f1f1;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .status-paid { background: #e8f5e9; color: #2e7d32; }
+        .status-pending { background: #ffebee; color: #d32f2f; }
+        
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .transaction-table th {
+            background: #fcfcfc;
+            text-align: left;
+            padding: 15px 25px;
+            border-bottom: 2px solid #f1f1f1;
+            color: #666;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .transaction-table td {
+            padding: 16px 25px;
+            border-bottom: 1px solid #f8f9fa;
+            color: #444;
+            vertical-align: middle;
+        }
+        .transaction-table tr:hover td {
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h1 style="font-family: 'Fredoka One', cursive;">Student Wise Report</h1>
+        </div>
+
+        <div class="filter-section">
+            <form th:action="@{/admin/fees/summary/student}" method="get" class="filter-grid">
+                <div class="filter-group">
+                    <label>Select Student</label>
+                    <select name="studentId" required>
+                        <option value="">-- Choose Student --</option>
+                        <option th:each="s : ${students}" 
+                                th:value="${s.id}" 
+                                th:text="${s.fullName + ' (' + s.rollNumber + ')'}"
+                                th:selected="${selectedStudent != null && selectedStudent.id == s.id}"></option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Fee Type</label>
+                    <select name="feeType">
+                        <option value="All">All Types</option>
+                        <option value="Tution Fee" th:selected="${param.feeType != null && param.feeType[0] == 'Tution Fee'}">Tution Fee</option>
+                        <option value="Admission Fee" th:selected="${param.feeType != null && param.feeType[0] == 'Admission Fee'}">Admission Fee</option>
+                        <option value="Annual Fee" th:selected="${param.feeType != null && param.feeType[0] == 'Annual Fee'}">Annual Fee</option>
+                        <option value="Registration Fee" th:selected="${param.feeType != null && param.feeType[0] == 'Registration Fee'}">Registration Fee</option>
+                        <option value="Uniform Fee" th:selected="${param.feeType != null && param.feeType[0] == 'Uniform Fee'}">Uniform Fee</option>
+                        <option value="Books" th:selected="${param.feeType != null && param.feeType[0] == 'Books'}">Books</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Month</label>
+                    <select name="month">
+                        <option value="All">All Months</option>
+                        <option th:each="m : ${ {'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'} }" 
+                                th:value="${m}" th:text="${m}"
+                                th:selected="${param.month != null && param.month[0] == m}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-view">
+                    <i class="fas fa-search"></i> Filter Records
+                </button>
+            </form>
+        </div>
+
+        <div th:if="${selectedStudent != null}">
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 20px; margin-bottom: 30px; border-left: 6px solid var(--admin-primary); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h2 style="margin: 0; font-size: 1.4rem; color: #333;" th:text="${selectedStudent.fullName}">Student Name</h2>
+                    <p style="margin: 8px 0 0 0; color: #666; font-weight: 600;">Course: <span th:text="${selectedStudent.course ?: 'N/A'}" style="color: var(--admin-primary);"></span> | Session: <span th:text="${selectedStudent.session}"></span></p>
+                    <p style="margin: 5px 0 0 0; color: #777; font-size: 0.9rem;">Roll No: <span th:text="${selectedStudent.rollNumber}"></span></p>
+                </div>
+                <div style="text-align: right;">
+                    <span style="display: block; font-size: 0.85rem; font-weight: 700; color: #888; text-transform: uppercase;">Outstanding Dues</span>
+                    <h3 style="margin: 5px 0 0 0; font-size: 1.8rem; color: #ff5252; font-family: 'Fredoka One', cursive;">₹ <span th:text="${selectedStudent.pendingFees}"></span></h3>
+                </div>
+            </div>
+
+            <!-- Fee Checklist Dues -->
+            <div style="margin-bottom: 35px;">
+                <h3 style="font-family: 'Fredoka One', cursive; color: #444; margin-bottom: 20px;"><i class="fas fa-tasks"></i> Fee Status Checklist</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div th:each="entry : ${feeStatus}" 
+                         style="background: white; padding: 15px 20px; border-radius: 15px; border: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 3px 8px rgba(0,0,0,0.02);">
+                        <span style="font-weight: 600; font-size: 0.9rem; color: #555;" th:text="${entry.key}">Registration Fee</span>
+                        <span th:class="${'status-badge ' + (entry.value == 'PAID' ? 'status-paid' : 'status-pending')}" 
+                              th:text="${entry.value}"
+                              th:style="${entry.value == 'PENDING' ? 'background: #ffebee; color: #d32f2f;' : ''}">PENDING</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Fredoka One', cursive; color: #444; margin-bottom: 15px;"><i class="fas fa-history"></i> Payment Transactions</h3>
+            <div class="transaction-card">
+                <table class="transaction-table" style="margin-bottom: 0;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Fee Type</th>
+                            <th>Month/Year</th>
+                            <th>Amount</th>
+                            <th>Mode</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="tx : ${transactions}">
+                            <td th:text="${#temporals.format(tx.paymentDate, 'dd-MM-yyyy')}">01-01-2024</td>
+                            <td th:text="${tx.feeType}">Tution Fee</td>
+                            <td th:text="${tx.month + ' ' + tx.year}">January 2024</td>
+                            <td style="font-weight: 700;">₹ <span th:text="${tx.amount}"></span></td>
+                            <td th:text="${tx.paymentMode}">Cash</td>
+                            <td style="display: flex; gap: 15px; align-items: center;">
+                                <span class="status-badge status-paid">PAID</span>
+                                <a th:href="@{'/admin/fees/receipt/' + ${tx.id}}" target="_blank" 
+                                   style="color: var(--admin-primary); text-decoration: none; font-size: 1.2rem; transition: transform 0.2s;" 
+                                   title="Print Receipt"
+                                   onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                                    <i class="fas fa-print"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(transactions)}">
+                            <td colspan="6" style="text-align: center; padding: 40px; color: #999;">
+                                <i class="fas fa-folder-open" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+                                No payment records found for the selected criteria.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div th:if="${selectedStudent == null}" style="text-align: center; padding: 100px 20px; color: #bbb;">
+            <i class="fas fa-user-search" style="font-size: 4rem; margin-bottom: 20px;"></i>
+            <h3>Please select a student to view their detailed fee history</h3>
+        </div>
+    </div>
+</body>
+</html>

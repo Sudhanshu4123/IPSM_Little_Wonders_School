@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <th:block th:replace="~{fragments/analytics :: google-analytics}"></th:block>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admission Form - IPSM Little Wonders</title>
@@ -207,14 +208,14 @@
                                     placeholder="Enter Total Number of Children" min="1" required>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="category">Category <span class="required">*</span></label>
                                 <select id="category" name="category" required>
                                     <option value="">Select Category</option>
                                     <option value="general">General</option>
                                     <option value="ews">EWS</option>
                                 </select>
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="parentPhoto">Parent's Photo <span class="required">*</span></label>
@@ -239,11 +240,12 @@
                         <div id="formMessage"
                             style="margin-bottom: 20px; text-align: center; display: none; font-weight: 600;"></div>
                         <div class="form-actions">
-                            <button type="button" class="download-form-btn" id="download-pdf-btn">
+                            <a th:href="@{/admission/form/download}" target="_blank" class="download-form-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
                                 <i class="fas fa-file-download"></i> Download Form
+                            </a>
+                            <button type="submit" class="download-form-btn" id="submitBtn">
+                                <i class="fas fa-paper-plane"></i> Submit Now
                             </button>
-                            <button type="submit" class="submit-btn" id="submitBtn">Submit Now <i
-                                    class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </form>

@@ -1,212 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration - IPSM Little Wonders</title>
+    <title>Direct Student Enrollment - IPSM Little Wonders</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap"
+        rel="stylesheet">
+    <!-- Flatpickr for DOB -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
-        :root {
-            --admin-primary: #ff4081; /* Admin Pink */
-            --admin-secondary: #00bcd4; /* Admin Cyan */
-            --admin-bg: #f5f7fa;
-            --sidebar-width: 260px;
-        }
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: var(--admin-bg);
-            margin: 0;
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: var(--sidebar-width);
-            background: white;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-        }
-        .sidebar-header {
-            padding: 30px 20px;
-            text-align: center;
-        }
-        .sidebar-logo {
-            width: 80px;
-            margin-bottom: 15px;
-        }
-        .sidebar h2 {
-            font-family: 'Fredoka One', cursive;
-            color: var(--admin-primary);
-            font-size: 1.2rem;
-            margin: 0;
-        }
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-            flex: 1;
-        }
-        .nav-item a {
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #555;
-            font-weight: 600;
-            transition: all 0.3s;
-            border-left: 4px solid transparent;
-        }
-        .nav-item a:hover, .nav-item.active a {
-            background: #fff0f6;
-            color: var(--admin-primary);
-            border-left-color: var(--admin-primary);
-        }
-        .nav-item i { width: 25px; margin-right: 15px; font-size: 1.1rem; }
-        .nav-dropdown-toggle { padding: 15px 30px; display: flex; align-items: center; cursor: pointer; color: #555; font-weight: 600; transition: all 0.3s; border-left: 4px solid transparent; user-select: none; }
-        .nav-dropdown-toggle:hover, .nav-dropdown-toggle.open { background: #fff0f6; color: var(--admin-primary); border-left-color: var(--admin-primary); }
-        .nav-dropdown-toggle .arrow { margin-left: auto; font-size: 0.75rem; transition: transform 0.3s; }
-        .nav-dropdown-toggle.open .arrow { transform: rotate(90deg); }
-        .nav-submenu { list-style: none; padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.35s ease; background: #fff8fc; }
-        .nav-submenu.open { max-height: 300px; }
-        .nav-submenu li a { padding: 12px 30px 12px 55px; display: flex; align-items: center; text-decoration: none; color: #666; font-weight: 600; font-size: 0.9rem; border-left: 4px solid transparent; transition: all 0.3s; }
-        .nav-submenu li a:hover, .nav-submenu li.active a { background: #fff0f6; color: var(--admin-primary); border-left-color: var(--admin-primary); }
-        .nav-submenu li i { width: 20px; margin-right: 10px; }
-        .main-content {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            padding: 30px;
-            width: calc(100% - var(--sidebar-width));
-        }
-        .top-bar {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-            border-radius: 15px;
-        }
-        .mobile-toggle {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--admin-primary);
-            cursor: pointer;
-        }
-        .btn-logout {
-            color: #ff5252;
-            text-decoration: none;
-            font-weight: 700;
-            background: #fff5f5;
-            padding: 10px 20px;
-            border-radius: 10px;
-            transition: all 0.3s;
-            display: block;
-            text-align: center;
-            margin: 0 20px 20px;
-        }
-        .btn-logout:hover {
-            background: #ff5252;
-            color: white;
-        }
         .form-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-            max-width: 800px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            max-width: 1000px;
             margin: 0 auto;
         }
-        .form-group {
-            margin-bottom: 25px;
+
+        .section-heading {
+            border-left: 5px solid var(--admin-primary);
+            padding-left: 15px;
+            margin: 30px 0 20px;
+            color: #333;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            background: #fffafa;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
         .form-group label {
             display: block;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: #444;
-            font-size: 0.95rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
         }
-        .form-group input, .form-group select {
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s;
             box-sizing: border-box;
         }
+
         .form-group input:focus {
             border-color: var(--admin-primary);
             outline: none;
-            background: #fffafd;
         }
+
         .btn-submit {
             background: var(--admin-primary);
             color: white;
             border: none;
             padding: 15px 40px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 700;
             font-size: 1.1rem;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.3);
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.2);
         }
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.4);
-        }
+
         .success-msg {
             background: #e8f5e9;
             color: #2e7d32;
             padding: 15px;
             border-radius: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
             font-weight: 600;
         }
-        @media (max-width: 992px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.active { transform: translateX(0); }
-            .main-content { margin-left: 0; width: 100%; padding: 20px; }
-            .mobile-toggle { display: block; }
-        }
     </style>
 </head>
+
 <body>
-    <div class="sidebar" id="adminSidebar">
-        <div class="sidebar-header">
-            <img th:src="@{/images/ipsm_pre_logo.png}" alt="Logo" class="sidebar-logo">
-            <h2>Little Wonders Admin</h2>
-        </div>
-        <ul class="nav-list">
-            <li class="nav-item"><a th:href="@{/admin/dashboard}"><i class="fas fa-th-large"></i> Dashboard</a></li>
-            <li class="nav-item"><a th:href="@{/admin/branches}"><i class="fas fa-school"></i> Branches</a></li>
-            <li class="nav-item"><a th:href="@{/admin/gallery}"><i class="fas fa-images"></i> Gallery</a></li>
-            <li class="nav-item"><a th:href="@{/admin/blogs}"><i class="fas fa-newspaper"></i> Blogs</a></li>
-            <li class="nav-item"><a th:href="@{/admin/celebrations}"><i class="fas fa-calendar-star"></i> Celebrations</a></li>
-            <li class="nav-item"><a th:href="@{/admin/courses}"><i class="fas fa-book-open"></i> Courses</a></li>
-            <li class="nav-item"><a th:href="@{/admin/fees}"><i class="fas fa-wallet"></i> Fees</a></li>
-        </ul>
-        <a th:href="@{/logout}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-    </div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
         <div class="top-bar">
             <div class="mobile-toggle" id="mobileToggle">
                 <i class="fas fa-bars"></i>
             </div>
-            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">New Student Registration</h1>
+            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">Direct Registration</h1>
             <div style="display: flex; align-items: center; color: #666;">
                 <i class="fas fa-user-circle" style="font-size: 1.5rem; margin-right: 10px;"></i>
                 <span>Admin</span>
@@ -214,82 +110,231 @@
         </div>
 
         <div th:if="${param.success}" class="success-msg">
-            <i class="fas fa-check-circle"></i> Student registered successfully! Roll number generated.
+            <i class="fas fa-check-circle"></i> student registered successfully with Roll Number.
         </div>
 
         <div class="form-card">
-            <div style="text-align: center; margin-bottom: 35px;">
-                <div style="width: 70px; height: 70px; background: #fff0f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
-                    <i class="fas fa-user-plus" style="color: var(--admin-primary); font-size: 2rem;"></i>
-                </div>
-                <h2 style="font-family: 'Fredoka One', cursive; color: #333; margin: 0;">Enroll New Student</h2>
-                <p style="color: #888; margin-top: 10px;">Fill the details below to create a direct student account.</p>
-            </div>
+            <form th:action="@{/admin/students/register}" method="post" enctype="multipart/form-data">
 
-            <form th:action="@{/admin/students/register}" method="post">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" name="fullName" placeholder="Enter full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Date of Birth *</label>
-                        <input type="text" name="dob" placeholder="DD-MM-YYYY (e.g. 15-08-2015)" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Child Gender</label>
-                        <select name="gender">
-                            <option value="Male">Boy</option>
-                            <option value="Female">Girl</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Father's Name</label>
-                        <input type="text" name="fatherName" placeholder="Enter father's name">
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Phone</label>
-                        <input type="tel" name="phone" placeholder="Mobile number">
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" placeholder="Email for notifications">
-                    </div>
+                <h3 class="section-heading" style="margin-top: 0;"><i class="fas fa-baby"></i> Child Basic Info</h3>
+                <div class="form-grid">
                     <div class="form-group">
                         <label>Admission Session *</label>
                         <select name="session" required>
-                            <option value="">Select Session</option>
+                            <option value="2024-25">2024-25</option>
+                            <option th:each="y : ${#numbers.sequence(25, 40)}" th:value="'20' + ${y} + '-' + (${y} + 1)"
+                                th:text="'20' + ${y} + '-' + (${y} + 1)"></option>
                         </select>
                     </div>
+                    <div th:replace="~{fragments/fee-elements :: courseSelect('Program Applied For *', '-- Select Program --', true, 'course')}"
+                        id="courseSelect"></div>
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" name="fullName" placeholder="Child's Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth *</label>
+                        <input type="text" id="dob" name="dob" placeholder="Select DOB" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="age" name="age" readonly style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender *</label>
+                        <select name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select name="bloodGroup">
+                            <option value="-">-</option>
+                            <option value="A+">A+</option>
+                            <option value="B+">B+</option>
+                            <option value="O+">O+</option>
+                            <option value="AB+">AB+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Child Photo</label>
+                        <input type="file" name="childPhoto" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Birth Certificate</label>
+                        <input type="file" name="birthCertificate" accept=".pdf,image/*">
+                    </div>
                 </div>
-                
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 10px 0 25px; border-left: 4px solid var(--admin-secondary);">
-                    <p style="margin: 0; font-size: 0.85rem; color: #666; line-height: 1.5;">
-                        <i class="fas fa-info-circle" style="color: var(--admin-secondary);"></i> 
-                        <strong>Automatic Setup:</strong> System will auto-generate the next Roll Number. 
-                        The student's username will be their Roll Number and password will be their DOB digits.
+
+                <h3 class="section-heading"><i class="fas fa-users"></i> Parents & Contact Info</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Father's Name *</label>
+                        <input type="text" name="fatherName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Name *</label>
+                        <input type="text" name="motherName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Phone *</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Phone</label>
+                        <input type="tel" name="motherPhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Email ID</label>
+                        <input type="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Occupation</label>
+                        <input type="text" name="fatherOccupation">
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Occupation</label>
+                        <input type="text" name="motherOccupation">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Children</label>
+                        <input type="number" name="totalChildren" min="1" value="1">
+                    </div>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Residential Address *</label>
+                        <textarea name="address" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Father's Photo</label>
+                        <input type="file" name="fatherPhoto" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Mother's Photo</label>
+                        <input type="file" name="motherPhoto" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Guardian's Photo</label>
+                        <input type="file" name="guardianPhoto" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Aadhar Card (Parent)</label>
+                        <input type="file" name="aadharCard" accept=".pdf,image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>PAN Card (Parent)</label>
+                        <input type="file" name="panCard" accept=".pdf,image/*">
+                    </div>
+                </div>
+
+                <h3 class="section-heading"><i class="fas fa-rupee-sign"></i> Fee Details</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Registration Fee</label>
+                        <input type="number" name="registrationFee" th:value="${feeConfig.registrationFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Admission Fee</label>
+                        <input type="number" name="admissionFee" th:value="${feeConfig.admissionFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Fee</label>
+                        <input type="number" name="annualFee" th:value="${feeConfig.annualFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Uniform Fee</label>
+                        <input type="number" name="uniformFee" th:value="${feeConfig.uniformFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Books Fee</label>
+                        <input type="number" name="booksFee" th:value="${feeConfig.booksFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Tuition Fee (Monthly)</label>
+                        <input type="number" name="tuitionFee" id="tuitionFeeInput"
+                            th:value="${feeConfig.getTuitionFee('Toddler')}" readonly style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Bag Fee</label>
+                        <input type="number" name="bagFee" th:value="${feeConfig.bagFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>ID Card Fee</label>
+                        <input type="number" name="idCardFee" th:value="${feeConfig.idCardFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Stationary Fee</label>
+                        <input type="number" name="stationaryFee" th:value="${feeConfig.stationaryFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Festival & Birthday Celebration</label>
+                        <input type="number" name="celebrationFee" th:value="${feeConfig.celebrationFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Picnic & Extra Curricula Actvitives</label>
+                        <input type="number" name="activityFee" th:value="${feeConfig.activityFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label>Yoga & Music & Dance</label>
+                        <input type="number" name="yogaMusicDanceFee" th:value="${feeConfig.yogaMusicDanceFee}" readonly
+                            style="background: #f5f5f5;">
+                    </div>
+                </div>
+
+                <div style="background: #fff4f4; padding: 20px; border-radius: 12px; margin-top: 30px;">
+                    <p style="margin:0; font-size: 0.85rem; color: #d32f2f;">
+                        <strong>Note:</strong> Password will be digits of Date of Birth (e.g. 01012020).
+                        Roll number will be auto-generated sequentially starting from 1001.
                     </p>
                 </div>
 
-                <button type="submit" class="btn-submit">Complete Registration</button>
+                <button type="submit" class="btn-submit">Submit</button>
             </form>
         </div>
     </div>
 
-    <script th:src="@{/js/main.js}"></script>
-    <script>
-        const mobileToggle = document.getElementById('mobileToggle');
-        const sidebar = document.getElementById('adminSidebar');
-        mobileToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script th:inline="javascript">
+        flatpickr("#dob", {
+            dateFormat: "d-m-Y",
+            maxDate: "today",
+            onChange: function (selectedDates, dateStr) {
+                if (selectedDates.length > 0) {
+                    const birthDate = selectedDates[0];
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const m = today.getMonth() - birthDate.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+                    document.getElementById('age').value = age;
+                }
+            }
         });
 
-        function toggleStudentMenu() {
-            const toggle = document.getElementById('studentDropdownToggle');
-            const menu = document.getElementById('studentSubMenu');
-            toggle.classList.toggle('open');
-            menu.classList.toggle('open');
-        }
+        // Dynamic tuition fee config drawn from backend
+        const feeMap = {
+            'Toddler': [[${ feeConfig.getTuitionFee('Toddler') }]],
+            'Pre-Nursery': [[${ feeConfig.getTuitionFee('Pre-Nursery') }]],
+            'Nursery': [[${ feeConfig.getTuitionFee('Nursery') }]],
+            'Prep': [[${ feeConfig.getTuitionFee('Prep') }]]
+        };
+
+        const courseSelect = document.getElementById('courseSelect');
+        const tuitionFeeInput = document.getElementById('tuitionFeeInput');
+
+        courseSelect.addEventListener('change', function () {
+            tuitionFeeInput.value = feeMap[this.value] || 2000;
+        });
     </script>
 </body>
+
 </html>

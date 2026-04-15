@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Receipt - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid #f1f1f1;
+        }
+        .student-table th {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            text-align: left;
+            color: #666;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .student-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f8f9fa;
+            color: #444;
+            vertical-align: middle;
+        }
+        .student-table tr:hover td {
+            background: #fafafa;
+        }
+        .receipt-btn {
+            background: #e3f2fd;
+            color: #1e88e5;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+        .receipt-btn:hover {
+            background: #1e88e5;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .no-receipt {
+            color: #ccc;
+            font-style: italic;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <h1 style="font-family: 'Fredoka One', cursive;">Generate Student Receipts</h1>
+        </div>
+
+        <div style="background: white; padding: 25px; border-radius: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); border: 1px solid #f1f1f1;">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Latest Payment</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.rollNumber}" style="font-weight: 700; color: var(--admin-primary);">Roll</td>
+                        <td>
+                            <div th:text="${student.fullName}" style="font-weight: 600;">Name</div>
+                        </td>
+                        <td th:text="${student.course ?: 'N/A'}">Course</td>
+                        <td>
+                            <div th:if="${latestTransactions.get(student.id) != null}">
+                                <span th:text="${latestTransactions.get(student.id).feeType}" style="font-size: 0.85rem; color: #666;"></span>
+                                <div style="font-size: 0.75rem; color: #999;" th:text="${#temporals.format(latestTransactions.get(student.id).paymentDate, 'dd MMM yyyy')}"></div>
+                            </div>
+                            <span th:if="${latestTransactions.get(student.id) == null}" class="no-receipt">No payments yet</span>
+                        </td>
+                        <td>
+                            <a th:if="${latestTransactions.get(student.id) != null}" 
+                               th:href="@{'/admin/fees/receipt/' + ${latestTransactions.get(student.id).id}}" 
+                               target="_blank" class="receipt-btn">
+                                <i class="fas fa-print"></i> Print Receipt
+                            </a>
+                            <a th:href="@{'/admin/fees/summary/student?studentId=' + ${student.id}}" 
+                               style="color: #888; text-decoration: none; font-size: 0.8rem; margin-left: 10px;" 
+                               title="View All History">
+                                <i class="fas fa-history"></i> History
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/js/main.js}"></script>
+</body>
+</html>

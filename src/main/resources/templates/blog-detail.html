@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/analytics :: google-analytics}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${blog.title} + ' - IPSM Little Wonders'">Blog Detail - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" th:href="@{/images/ipsm_pre_logo.png}" type="image/jpeg">
+    <style>
+        .blog-detail-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .blog-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .blog-header h1 {
+            font-size: 2.5rem;
+            color: #b71677;
+            margin-bottom: 15px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .blog-meta {
+            color: #777;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        .blog-featured-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .blog-text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            white-space: pre-wrap; /* Preserves newlines from the admin form */
+        }
+
+        .back-to-blogs {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .back-to-blogs:hover {
+            background: #9a1264; /* Explicit darker shade of primary */
+            color: white !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(183, 22, 119, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{index :: header}"></div>
+
+    <div class="blog-detail-container">
+        <div class="blog-header" th:if="${blog}">
+            <h1 th:text="${blog.title}">Blog Post Title</h1>
+            <div class="blog-meta">
+                <span th:text="'By ' + (${blog.authorName} ?: 'IPSM Admin')">By Admin</span> | 
+                <span th:text="${#temporals.format(blog.publishedDate, 'MMMM dd, yyyy')}">January 25, 2026</span>
+            </div>
+        </div>
+
+        <div th:if="${blog}">
+            <img th:src="${blog.blogImagePath ?: '/images/hero_preschool.png'}" 
+                 class="blog-featured-image" 
+                 alt="Blog Image">
+            
+            <div class="blog-text-content" th:text="${blog.content}">
+                Blog content goes here...
+            </div>
+
+            <a th:href="@{/blog}" class="back-to-blogs">
+                <i class="fas fa-arrow-left"></i> Back to All Blogs
+            </a>
+        </div>
+
+        <div th:unless="${blog}" style="text-align: center; padding: 100px 0;">
+            <h2>Oops! Blog not found.</h2>
+            <a th:href="@{/blog}" class="back-to-blogs">Go Back</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer th:replace="~{index :: footer}"></footer>
+
+    <script th:src="@{/js/main.js}"></script>
+</body>
+
+</html>

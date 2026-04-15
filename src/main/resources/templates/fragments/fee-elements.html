@@ -1,0 +1,61 @@
+<!-- Common Student Dropdown Fragment -->
+<div th:fragment="studentSelect(labelText, placeholder, isRequired, fieldName)" class="form-group">
+    <label th:text="${labelText}">Select Student</label>
+    <select th:name="${fieldName}" th:required="${isRequired}">
+        <option value="" th:text="${placeholder}">-- Selection --</option>
+        <option th:each="u : ${users}" 
+                th:value="${u.id}" 
+                th:text="${u.fullName + ' (' + u.rollNumber + ')'}"></option>
+    </select>
+</div>
+
+<!-- Common Course/Class Dropdown Fragment -->
+<div th:fragment="courseSelect(labelText, placeholder, isRequired, fieldName)" class="form-group">
+    <label th:text="${labelText}">Select Course</label>
+    <select th:name="${fieldName}" th:required="${isRequired}">
+        <option value="" th:text="${placeholder}">-- All Courses --</option>
+        <option th:each="c : ${courses}" 
+                th:value="${c.name}" 
+                th:text="${c.name}"></option>
+    </select>
+</div>
+
+<!-- Common Fee Type Dropdown Fragment -->
+<div th:fragment="feeTypeSelect(labelText, placeholder, isRequired, fieldName, id, onchange)" class="form-group">
+    <label th:text="${labelText}">Select Fee Type</label>
+    <select th:id="${id}" th:name="${fieldName}" th:required="${isRequired}" th:onchange="${onchange}">
+        <option value="" th:text="${placeholder}">All Fee Types</option>
+        <option value="Tution Fee">Tution Fee</option>
+        <option value="Admission Fee">Admission Fee</option>
+        <option value="Annual Fee">Annual Fee</option>
+        <option value="Registration Fee">Registration Fee</option>
+        <option value="Uniform Fee">Uniform Fee</option>
+        <option value="Books">Books</option>
+        <option value="Bag Fee">Bag Fee</option>
+        <option value="ID Card Fee">ID Card Fee</option>
+        <option value="Stationary Fee">Stationary Fee</option>
+        <option value="Festival & Birthday Celebration">Festival & Birthday Celebration</option>
+        <option value="Picnic & Extra Curricular Activities">Picnic & Extra Curricular Activities</option>
+        <option value="Yoga & Music & Dance">Yoga & Music & Dance</option>
+    </select>
+</div>
+
+<!-- Common Month Dropdown Fragment -->
+<div th:fragment="monthSelect(labelText, placeholder, placeholderValue, isRequired, fieldName, id, onchange)" class="form-group">
+    <label th:text="${labelText}">Select Month</label>
+    <select th:id="${id}" th:name="${fieldName}" th:required="${isRequired}" th:onchange="${onchange}">
+        <option th:value="${placeholderValue}" th:text="${placeholder}">-- Choose Month --</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+    </select>
+</div>

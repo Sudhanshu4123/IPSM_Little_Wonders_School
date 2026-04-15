@@ -3,116 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fee Management - IPSM Little Wonders</title>
+    <title>Fee Payment - IPSM Little Wonders</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --admin-primary: #ff4081;
-            --admin-secondary: #00bcd4;
-            --admin-bg: #f5f7fa;
-            --sidebar-width: 260px;
-        }
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: var(--admin-bg);
-            margin: 0;
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: var(--sidebar-width);
-            background: white;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-        }
-        .sidebar-header {
-            padding: 30px 20px;
-            text-align: center;
-        }
-        .sidebar-logo {
-            width: 80px;
-            margin-bottom: 15px;
-        }
-        .sidebar h2 {
-            font-family: 'Fredoka One', cursive;
-            color: var(--admin-primary);
-            font-size: 1.2rem;
-            margin: 0;
-        }
-        .nav-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-            flex: 1;
-        }
-        .nav-item a {
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #555;
-            font-weight: 600;
-            transition: all 0.3s;
-            border-left: 4px solid transparent;
-        }
-        .nav-item a:hover, .nav-item.active a {
-            background: #fff0f6;
-            color: var(--admin-primary);
-            border-left-color: var(--admin-primary);
-        }
-        .nav-item i {
-            width: 25px;
-            margin-right: 15px;
-            font-size: 1.1rem;
-        }
-        .main-content {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            padding: 30px;
-            width: calc(100% - var(--sidebar-width));
-        }
-        .top-bar {
-            background: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-            border-radius: 15px;
-        }
-        .mobile-toggle {
-            display: none;
-            font-size: 1.5rem;
-            color: var(--admin-primary);
-            cursor: pointer;
-        }
-        .btn-logout {
-            color: #ff5252;
-            text-decoration: none;
-            font-weight: 700;
-            background: #fff5f5;
-            padding: 10px 20px;
-            border-radius: 10px;
-            transition: all 0.3s;
-            display: block;
-            text-align: center;
-            margin: 0 20px 20px;
-        }
-        .btn-logout:hover {
-            background: #ff5252;
-            color: white;
-        }
         .table-responsive {
             overflow-x: auto;
             border-radius: 20px;
@@ -149,132 +44,234 @@
             text-decoration: none;
             font-size: 13px;
         }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-            }
-            .mobile-toggle {
-                display: block;
-            }
-            .top-bar {
-                padding: 15px 20px;
-            }
-            .sidebar-overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-            }
-            .sidebar-overlay.active {
-                display: block;
-            }
-            .hide-mobile { display: none; }
-            .search-box input { width: 100% !important; margin-top: 10px; }
-            .fee-header { flex-direction: column; align-items: flex-start !important; }
-        }
     </style>
 </head>
 <body>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <div class="sidebar" id="adminSidebar">
-        <div class="sidebar-header">
-            <img th:src="@{/images/ipsm_pre_logo.png}" alt="Logo" class="sidebar-logo">
-            <h2>Little Wonders Admin</h2>
-        </div>
-        <ul class="nav-list">
-            <li class="nav-item"><a th:href="@{/admin/dashboard}"><i class="fas fa-th-large"></i> Dashboard</a></li>
-            <li class="nav-item"><a th:href="@{/admin/branches}"><i class="fas fa-school"></i> Branches</a></li>
-            <li class="nav-item"><a th:href="@{/admin/gallery}"><i class="fas fa-images"></i> Gallery</a></li>
-            <li class="nav-item"><a th:href="@{/admin/blogs}"><i class="fas fa-newspaper"></i> Blogs</a></li>
-            <li class="nav-item"><a th:href="@{/admin/celebrations}"><i class="fas fa-calendar-star"></i> Celebrations</a></li>
-            <li class="nav-item"><a th:href="@{/admin/courses}"><i class="fas fa-book-open"></i> Courses</a></li>
-            <li class="nav-item active"><a th:href="@{/admin/fees}"><i class="fas fa-wallet"></i> Fees</a></li>
-            <li class="nav-item"><a th:href="@{/admin/admissions}"><i class="fas fa-user-graduate"></i> Admissions</a></li>
-        </ul>
-        <a th:href="@{/logout}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-    </div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
 
     <div class="main-content">
         <div class="top-bar">
             <div class="mobile-toggle" id="mobileToggle">
                 <i class="fas fa-bars"></i>
             </div>
-            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">Fee Management</h1>
+            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">Student Fee Payment</h1>
             <div class="admin-user" style="display: flex; align-items: center;">
                 <i class="fas fa-user-circle" style="font-size: 1.2rem; margin-right: 8px;"></i>
                 Admin
             </div>
         </div>
 
-        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.04); margin-bottom: 30px;">
-            <div class="fee-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="font-family: 'Fredoka One', cursive; color: var(--admin-primary); margin: 0; font-size: 1.2rem;">Student Fee Status</h2>
-                <div class="search-box" style="width: 100%; max-width: 300px;">
-                    <input type="text" placeholder="Search student..." style="padding: 10px 20px; border-radius: 10px; border: 1px solid #ddd; width: 100%; box-sizing: border-box;">
+        <!-- Success Notification -->
+        <div th:if="${param.success != null}" id="successAlert" 
+             style="background: #ecfdf5; color: #065f46; padding: 20px 30px; border-radius: 16px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #a7f3d0; border-left: 6px solid #10b981; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1); animation: slideDown 0.5s ease;">
+            <div style="display: flex; align-items: center;">
+                <div style="background: #10b981; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-size: 1.4rem; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div>
+                    <h3 style="margin: 0; font-size: 1.1rem; font-weight: 700;">Payment Successful!</h3>
+                    <p style="margin: 3px 0 0 0; font-size: 0.9rem; opacity: 0.85;">The student's fee record has been updated successfully.</p>
+                </div>
+                <div th:if="${param.txId != null}" style="margin-left: 40px;">
+                    <a th:href="@{/admin/fees/receipt/{id}(id=${param.txId})}" target="_blank" 
+                       style="background: #065f46; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(6, 95, 70, 0.2);">
+                        <i class="fas fa-print"></i> Print Official Receipt
+                    </a>
+                </div>
+            </div>
+            <button onclick="document.getElementById('successAlert').style.display='none'" 
+                    style="background: none; border: none; color: #065f46; cursor: pointer; font-size: 1.5rem; padding: 5px; opacity: 0.6;">&times;</button>
+        </div>
+
+        <!-- Student Selection -->
+        <div style="background: white; padding: 25px; border-radius: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); margin-bottom: 30px; border: 1px solid #f1f1f1;">
+            <label style="display: block; margin-bottom: 10px; font-weight: 700; color: #444;">Select Student to Pay Fee</label>
+            <select id="studentSelect" onchange="updateStudentDetails()" style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #ddd; font-family: inherit; font-size: 1rem; color: #333; cursor: pointer; outline: none; transition: border-color 0.3s;">
+                <option value="">-- Choose a Student --</option>
+                <option th:each="user : ${users}" 
+                        th:value="${user.id}" 
+                        th:data-name="${user.fullName}"
+                        th:data-session="${user.session}"
+                        th:data-course="${user.course != null ? user.course : 'Not Specified'}"
+                        th:data-pending="${user.pendingFees}"
+                        th:text="${user.fullName + ' (' + user.rollNumber + ')'}">Student Name</option>
+            </select>
+        </div>
+
+        <div id="paymentSection" style="display: none;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <!-- Student Info Card -->
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 24px; color: white;">
+                    <h2 style="font-family: 'Fredoka One', cursive; margin-top: 0; font-size: 1.4rem;">Student Details</h2>
+                    <div style="margin-top: 20px;">
+                        <p style="margin: 8px 0; opacity: 0.9;"><strong>Name:</strong> <span id="display-name"></span></p>
+                        <p style="margin: 8px 0; opacity: 0.9;"><strong>Course:</strong> <span id="display-course"></span></p>
+                        <p style="margin: 8px 0; opacity: 0.9;"><strong>Session:</strong> <span id="display-session"></span></p>
+                        <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.2); margin: 20px 0;">
+                        <p style="margin: 8px 0; font-size: 1.2rem;"><strong>Outstanding:</strong> ₹ <span id="display-pending"></span></p>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <div style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid #f1f1f1;">
+                    <h2 style="font-family: 'Fredoka One', cursive; margin-top: 0; color: #333; font-size: 1.4rem;">Payment Details</h2>
+                    <form th:action="@{/admin/fees/update}" method="post">
+                        <input type="hidden" name="userId" id="form-userId">
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                            <div class="form-group">
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem;">Fee Type</label>
+                                <select name="feeType" id="feeTypeSelect" onchange="updateFeeAmount()" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                                    <option value="">-- Select Fee Type --</option>
+                                    <option value="Tution Fee">Tution Fee (Monthly)</option>
+                                    <option value="Admission Fee">Admission Fee (One-Time)</option>
+                                    <option value="Annual Fee">Annual Fee (Yearly)</option>
+                                    <option value="Registration Fee">Registration Fee</option>
+                                    <option value="Uniform Fee">Uniform Fee</option>
+                                    <option value="Books">Books & Stationary</option>
+                                    <option value="Bag Fee">School Bag</option>
+                                    <option value="ID Card Fee">ID Card Fee</option>
+                                    <option value="Stationary Fee">Stationary</option>
+                                    <option value="Festival & Birthday Celebration">Celebrations</option>
+                                    <option value="Picnic & Extra Curricular Activities">Activities/Picnic</option>
+                                    <option value="Yoga & Music & Dance">Yoga/Music/Dance</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem;">Select Month</label>
+                                <select name="month" id="monthSelect" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                                    <option value="N/A">N/A (Annual Fee)</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem;">Amount (₹)</label>
+                                <input type="number" name="amount" id="amountInput" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem;">Payment Mode</label>
+                                <select name="paymentMode" required style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                                    <option value="Cash">Cash</option>
+                                    <option value="Online">Online Payment</option>
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="UPI">UPI / QR Code</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" style="width: 100%; margin-top: 25px; background: #4caf50; color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 1rem;">
+                            Submit Payment & Generate Receipt
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="item-table">
-                <thead>
-                    <tr>
-                        <th>Student Name</th>
-                        <th class="hide-mobile">Reg No</th>
-                        <th>Dues</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.fullName}">Student Name</td>
-                        <td class="hide-mobile" th:text="${user.registrationNumber}">LW-000</td>
-                        <td class="due-amount">₹ <span th:text="${user.pendingFees}">0.00</span></td>
-                        <td>
-                            <form th:action="@{/admin/fees/update}" method="post" style="display: flex; gap: 5px; align-items: center;">
-                                <input type="hidden" name="userId" th:value="${user.id}">
-                                <input type="number" name="amount" th:value="${user.pendingFees}" style="padding: 5px; border-radius: 5px; border: 1px solid #ddd; width: 80px; font-size: 13px;">
-                                <button type="submit" class="btn-action" style="cursor: pointer; padding: 6px 10px;">
-                                    <i class="fas fa-save"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(users)}">
-                        <td colspan="4" style="text-align: center; color: #999;">No students found.</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- If no students -->
+        <div th:if="${#lists.isEmpty(users)}" style="text-align: center; padding: 50px; color: #999;">
+            <i class="fas fa-user-slash" style="font-size: 3rem; margin-bottom: 15px;"></i>
+            <p>No students found in the system.</p>
         </div>
     </div>
 
-    <script>
-        const mobileToggle = document.getElementById('mobileToggle');
-        const sidebar = document.getElementById('adminSidebar');
-        const overlay = document.getElementById('sidebarOverlay');
+    <script th:src="@{/js/main.js}"></script>
+    <script th:inline="javascript">
+        const FEE_STRUCTURE = {
+            "Registration Fee": { default: [[${feeConfig != null ? feeConfig.registrationFee : 1000}]] },
+            "Admission Fee": { default: [[${feeConfig != null ? feeConfig.admissionFee : 5000}]] },
+            "Annual Fee": { default: [[${feeConfig != null ? feeConfig.annualFee : 5000}]] },
+            "Uniform Fee": { default: [[${feeConfig != null ? feeConfig.uniformFee : 2500}]] },
+            "Books": { default: [[${feeConfig != null ? feeConfig.booksFee : 3000}]] },
+            "Bag Fee": { default: [[${feeConfig != null ? feeConfig.bagFee : 0}]] },
+            "ID Card Fee": { default: [[${feeConfig != null ? feeConfig.idCardFee : 0}]] },
+            "Stationary Fee": { default: [[${feeConfig != null ? feeConfig.stationaryFee : 0}]] },
+            "Festival & Birthday Celebration": { default: [[${feeConfig != null ? feeConfig.celebrationFee : 0}]] },
+            "Picnic & Extra Curricular Activities": { default: [[${feeConfig != null ? feeConfig.activityFee : 0}]] },
+            "Yoga & Music & Dance": { default: [[${feeConfig != null ? feeConfig.yogaMusicDanceFee : 0}]] },
+            "Exam Fee": { default: 500 },
+            "Tution Fee": {
+                "Toddler": [[${feeConfig != null ? feeConfig.getTuitionFee('Toddler') : 2000}]],
+                "Pre-Nursery": [[${feeConfig != null ? feeConfig.getTuitionFee('Pre-Nursery') : 2500}]],
+                "Nursery": [[${feeConfig != null ? feeConfig.getTuitionFee('Nursery') : 2500}]],
+                "Prep": [[${feeConfig != null ? feeConfig.getTuitionFee('Prep') : 3000}]],
+                "LKG": [[${feeConfig != null ? feeConfig.getTuitionFee('LKG') : 3000}]],
+                "UKG": [[${feeConfig != null ? feeConfig.getTuitionFee('UKG') : 3000}]],
+                "default": [[${feeConfig != null ? feeConfig.getTuitionFee('default') : 2000}]]
+            }
+        };
 
-        mobileToggle.addEventListener('click', () => {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-        });
+        function updateStudentDetails() {
+            const select = document.getElementById('studentSelect');
+            const section = document.getElementById('paymentSection');
+            const option = select.options[select.selectedIndex];
 
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
+            if (select.value === "") {
+                section.style.display = "none";
+                return;
+            }
+
+            section.style.display = "block";
+            
+            // Update Info Card
+            document.getElementById('display-name').textContent = option.getAttribute('data-name');
+            document.getElementById('display-course').textContent = option.getAttribute('data-course');
+            document.getElementById('display-session').textContent = option.getAttribute('data-session');
+            document.getElementById('display-pending').textContent = option.getAttribute('data-pending');
+            
+            // Update Hidden ID for form
+            document.getElementById('form-userId').value = select.value;
+
+            // Force update amount/month logic
+            updateFeeAmount();
+        }
+
+        function updateFeeAmount() {
+            const feeTypeFull = document.getElementById('feeTypeSelect').value;
+            const course = document.getElementById('display-course').textContent;
+            const amountInput = document.getElementById('amountInput');
+            const monthSelect = document.getElementById('monthSelect');
+
+            // Strip suffix like " (Monthly)" or " (One-Time)" for key matching
+            const feeType = feeTypeFull.split(' (')[0];
+
+            if (!feeType) {
+                amountInput.value = "";
+                monthSelect.disabled = false;
+                return;
+            }
+
+            // Month logic: Only Tution Fee needs month
+            if (feeType === "Tution Fee") {
+                monthSelect.disabled = false;
+                if (monthSelect.value === "N/A") monthSelect.value = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date());
+            } else {
+                monthSelect.value = "N/A";
+                monthSelect.disabled = true;
+            }
+
+            if (FEE_STRUCTURE[feeType]) {
+                if (feeType === "Tution Fee") {
+                    amountInput.value = FEE_STRUCTURE[feeType][course] || FEE_STRUCTURE[feeType]["default"];
+                } else {
+                    amountInput.value = FEE_STRUCTURE[feeType].default;
+                }
+            }
+        }
     </script>
 </body>
 </html>

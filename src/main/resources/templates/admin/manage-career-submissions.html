@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Career Applications - IPSM Little Wonders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        .table-container {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            color: #666;
+            font-weight: 700;
+            border-bottom: 2px solid #eee;
+        }
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f1f1f1;
+            color: #444;
+            vertical-align: top;
+        }
+        .btn-delete {
+            background: #ff5252;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+        .btn-view {
+            background: var(--admin-secondary);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <h1 style="margin: 0; font-size: 1.3rem; color: #333;">Career Applications</h1>
+            <div style="display: flex; align-items: center;">
+                <i class="fas fa-user-circle" style="font-size: 1.2rem; margin-right: 8px;"></i>
+                Admin
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2 style="font-family: 'Fredoka One', cursive; color: var(--admin-primary); margin-top: 0; font-size: 1.2rem;">Career Submissions</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Contact Info</th>
+                            <th>Files</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="submission : ${careerSubmissions}">
+                            <td style="font-weight: 700;" th:text="${submission.name}">Name</td>
+                            <td>
+                                <span style="background: #f3e5f5; color: #8e24aa; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600;" th:text="${submission.position}">Position</span>
+                            </td>
+                            <td>
+                                <div style="font-size: 0.9rem;"><i class="fas fa-phone" style="width: 15px;"></i> <span th:text="${submission.contact}">Phone</span></div>
+                                <div style="font-size: 0.9rem; color: #666;"><i class="fas fa-envelope" style="width: 15px;"></i> <span th:text="${submission.email}">Email</span></div>
+                            </td>
+                            <td>
+                                <a th:if="${submission.cvPath}" th:href="@{${submission.cvPath}}" target="_blank" class="btn-view" title="View CV"><i class="fas fa-file-pdf"></i> CV</a>
+                                <a th:if="${submission.photoPath}" th:href="@{${submission.photoPath}}" target="_blank" class="btn-view" style="background: #4caf50;" title="View Photo"><i class="fas fa-image"></i> Photo</a>
+                            </td>
+                            <td style="font-size: 0.85rem; white-space: nowrap;" th:text="${#temporals.format(submission.createdAt, 'dd MMM yyyy, HH:mm')}">Date</td>
+                            <td>
+                                <form th:action="@{'/admin/career-submissions/delete/' + ${submission.id}}" method="post">
+                                    <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this application?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(careerSubmissions)}">
+                            <td colspan="6" style="text-align: center; padding: 40px; color: #999;">No career applications found.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Print ID Card - IPSM Little Wonders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 20mm;
+            background: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20mm;
+            /* Space between front and back */
+            font-family: 'Arial', sans-serif;
+            flex-wrap: wrap;
+        }
+
+        /* Standard ID Card Dimensions */
+        .icard-side {
+            width: 54mm;
+            height: 86mm;
+            background-color: white;
+            background-size: 54mm 86mm;
+            background-repeat: no-repeat;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+            overflow: hidden;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+
+        .icard-front {
+            background-image: url('/images/icard-front.jpeg');
+        }
+
+        .icard-back {
+            background-image: url('/images/icard-back.png');
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 10mm;
+                gap: 10mm;
+            }
+
+            .icard-side {
+                box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+                margin: 0;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        /* Value Overlay Styles */
+        .val-text {
+            position: absolute;
+            font-size: 11px;
+            font-weight: 900;
+            color: #0b1a80;
+            /* Dark blue matching template */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* FRONT SPECIFIC */
+        .f-photo {
+            position: absolute;
+            top: 16mm;
+            /* Fine-tuned for center circle */
+            left: 14mm;
+            width: 24.2mm;
+            /* Perfectly matching the template circle size */
+            height: 24.2mm;
+            border-radius: 50%;
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            /* Subtle border for clean circle */
+            z-index: 5;
+        }
+
+        .f-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .f-name {
+            position: absolute;
+            top: 40.5mm;
+            left: 0mm;
+            width: 54mm;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 900;
+            color: #b71261;
+            text-transform: capitalize;
+        }
+
+        .f-program {
+            top: 46.5mm;
+            left: 30mm;
+        }
+
+        .f-dob {
+            top: 52mm;
+            left: 30mm;
+        }
+
+        .f-sid {
+            top: 57.5mm;
+            left: 30mm;
+        }
+
+        .f-blood1 {
+            top: 63mm;
+            left: 30mm;
+        }
+
+        .f-blood2 {
+            top: 68.5mm;
+            left: 30mm;
+        }
+
+        /* BACK SPECIFIC */
+        .b-photo-mother,
+        .b-photo-father,
+        .b-photo-guardian {
+            position: absolute;
+            top: 21mm;
+            /* Moved up by 3 points/mm as requested */
+            width: 13.5mm;
+            height: 14mm;
+            /* Reduced height to prevent cutting "Father/Mother" text */
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5px;
+            /* Smaller font for placeholder */
+            border-radius: 1px;
+            overflow: hidden;
+            border: 0.5px solid #eee;
+        }
+
+        .b-photo-mother img,
+        .b-photo-father img,
+        .b-photo-guardian img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .b-photo-mother {
+            left: 4.5mm;
+        }
+
+        .b-photo-father {
+            left: 20.3mm;
+        }
+
+        .b-photo-guardian {
+            left: 36.1mm;
+        }
+
+        .b-fname {
+            top: 39mm;
+            left: 30mm;
+            font-size: 10px;
+        }
+
+        .b-mname {
+            top: 44mm;
+            left: 30mm;
+            font-size: 10px;
+        }
+
+        .b-fphone {
+            top: 49mm;
+            left: 30mm;
+            font-size: 10px;
+        }
+
+        .b-mphone {
+            top: 53.5mm;
+            left: 30mm;
+            font-size: 10px;
+        }
+
+        .b-address {
+            top: 58.5mm;
+            left: 30mm;
+            font-size: 9px;
+            width: 22mm;
+            line-height: 1.2;
+            word-wrap: break-word;
+        }
+
+        /* Print Controls */
+        .print-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            z-index: 1000;
+            width: 250px;
+        }
+
+        .print-controls button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Dev Controls -->
+    <div class="print-controls no-print">
+        <button onclick="window.print()"><i class="fas fa-print"></i> Print I-Card</button>
+        <p style="font-size: 12px; margin: 0 0 5px 0;">Blank Images required in static/images/:</p>
+        <ul style="font-size: 11px; margin: 0 0 10px 0; padding-left: 15px; color: #4caf50;">
+            <li><b>icard-front.jpeg</b></li>
+            <li><b>icard-back.jpeg</b></li>
+        </ul>
+        <p style="font-size: 11px; color: #ffcc00; margin: 0;"><b>Note:</b> Remove "Michel Wheeler" from your blank
+            template so it doesn't overlap real names.</p>
+    </div>
+
+    <!-- Loop through all students -->
+    <th:block th:each="student : ${students}">
+        <!-- I-Card Front -->
+        <div class="icard-side icard-front">
+            <div class="f-photo">
+                <img th:if="${student.childPhotoPath}" th:src="${student.childPhotoPath}" alt="Child">
+                <span th:unless="${student.childPhotoPath}">PHOTO</span>
+            </div>
+
+            <div class="f-name" th:text="${student.fullName}">John Doe</div>
+
+            <div class="val-text f-program" th:text="${student.course ?: '-'}">Toddlers</div>
+            <div class="val-text f-dob" th:text="${student.dateOfBirth ?: '-'}">03/06/2024</div>
+            <div class="val-text f-sid" th:text="${student.rollNumber ?: '-'}">IPSMT101</div>
+            <div class="val-text f-blood1" th:text="${student.bloodGroup ?: 'A+'}">A+</div>
+            <div class="val-text f-blood2" th:text="${student.bloodGroup ?: 'A+'}">A+</div>
+        </div>
+
+        <!-- I-Card Back -->
+        <div class="icard-side icard-back">
+            <!-- Back Photos -->
+            <div class="b-photo-mother">
+                <img th:if="${student.motherPhotoPath}" th:src="${student.motherPhotoPath}" alt="Mother">
+                <span th:unless="${student.motherPhotoPath}">MOTHER</span>
+            </div>
+            <div class="b-photo-father">
+                <img th:if="${student.fatherPhotoPath}" th:src="${student.fatherPhotoPath}" alt="Father">
+                <span th:unless="${student.fatherPhotoPath}">FATHER</span>
+            </div>
+            <div class="b-photo-guardian">
+                <img th:if="${student.guardianPhotoPath}" th:src="${student.guardianPhotoPath}" alt="Guardian">
+                <span th:unless="${student.guardianPhotoPath}">GUARD</span>
+            </div>
+
+            <!-- Back Fields -->
+            <div class="val-text b-fname" th:text="${student.fatherName ?: 'Mr. Father'}">Mr. Father</div>
+            <div class="val-text b-mname" th:text="${student.motherName ?: 'Mrs. Mother'}">Mrs. Mother</div>
+            <div class="val-text b-fphone" th:text="${student.fatherPhone ?: student.phone}">9090808011</div>
+            <div class="val-text b-mphone" th:text="${student.motherPhone ?: student.phone}">9090808011</div>
+            <div class="val-text b-address" th:text="${student.address}">D-504, Dwarka, Delhi, India</div>
+        </div>
+    </th:block>
+
+    <!-- JavaScript to trigger Auto Print -->
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                window.print();
+            }, 500);
+        };
+    </script>
+</body>
+
+</html>

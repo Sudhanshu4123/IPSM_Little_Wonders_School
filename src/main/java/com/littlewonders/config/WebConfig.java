@@ -11,12 +11,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Map /images/uploads/** to the physical directory src/main/resources/static/images/uploads/
-        // In local development, this helps pick up newly uploaded files immediately
-        Path uploadDir = Paths.get("src/main/resources/static/images/uploads/");
+        // Map /images/uploads/** to the physical directory external-uploads/
+        Path uploadDir = Paths.get("external-uploads/");
         String uploadPath = uploadDir.toFile().getAbsolutePath();
         
+        // Use a more robust file URL format for cross-platform support
+        String location = uploadPath.startsWith("/") ? "file:" + uploadPath + "/" : "file:/" + uploadPath + "/";
+        
         registry.addResourceHandler("/images/uploads/**")
-                .addResourceLocations("file:/" + uploadPath + "/");
+                .addResourceLocations(location);
     }
 }

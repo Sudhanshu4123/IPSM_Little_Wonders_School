@@ -30,7 +30,7 @@ public class AdmissionController {
             @RequestParam("motherOccupation") String motherOccupation,
             @RequestParam("address") String address,
             @RequestParam("totalChildren") Integer totalChildren,
-            @RequestParam("category") String category,
+            @RequestParam(value = "category", required = false) String category,
             @RequestParam("programApplied") String programApplied,
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,

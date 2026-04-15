@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admission Form - IPSM Little Wonders</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #000;
+            padding: 15px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            flex: 1;
+        }
+
+        .title-section {
+            flex: 3;
+            text-align: center;
+        }
+
+        .photo-section {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b71261;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .school-tagline {
+            font-size: 14px;
+            color: #0b1a80;
+            font-weight: bold;
+        }
+
+        .form-title {
+            background: #000;
+            color: #fff;
+            padding: 5px 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .photo-box {
+            width: 35mm;
+            height: 45mm;
+            border: 1px dashed #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            text-align: center;
+            color: #666;
+        }
+
+        .section-title {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-left: 5px solid #b71261;
+            font-size: 14px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            padding: 8px 0;
+            min-height: 25px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 150px;
+            font-size: 12px;
+        }
+
+        .info-value {
+            flex: 1;
+            font-size: 12px;
+            border-bottom: 1px dotted #000;
+        }
+
+        .info-full {
+            grid-column: span 2;
+        }
+
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature-box {
+            text-align: center;
+            width: 150px;
+        }
+
+        .signature-line {
+            border-top: 2px solid #000;
+            margin-top: 40px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .no-print {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #b71261;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            z-index: 1000;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="no-print" onclick="window.print()"><i class="fas fa-print"></i> Print / Download Form</button>
+
+    <div class="form-container">
+        <div class="header">
+            <div class="logo-section">
+                <img th:src="@{/images/ipsm_pre_logo.png}" alt="Logo" style="width: 80px;">
+            </div>
+            <div class="title-section">
+                <div class="school-name">IPSM Little Wonders</div>
+                <div class="school-tagline">Play School & Day Care Center</div>
+                <div class="form-title">ADMISSION APPLICATION FORM</div>
+            </div>
+            <div class="photo-section">
+                <div class="photo-box">
+                    AFFIX RECENT<br>PASSPORT SIZE<br>PHOTOGRAPH
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px;">
+            <div><strong>Application ID:</strong> ________________</div>
+            <div><strong>Session:</strong> 202____ - 202____</div>
+            <div><strong>Date:</strong> ____ / ____ / 202____</div>
+        </div>
+
+        <div class="section-title">CHILD DETAILS</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">First Name:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Last Name:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Gender:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Date of Birth:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Age:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Blood Group:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Program Applied:</div>
+                <div class="info-value"></div>
+            </div>
+        </div>
+
+        <div class="section-title">PARENT/GUARDIAN DETAILS</div>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Father's Name:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Mother's Name:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Father's Phone:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Mother's Phone:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Father's Education:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Mother's Education:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Email:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Total Children:</div>
+                <div class="info-value"></div>
+            </div>
+            <div class="info-item info-full">
+                <div class="info-label">Full Address:</div>
+                <div class="info-value"></div>
+            </div>
+        </div>
+
+        <div class="section-title">DECLARATION</div>
+        <p style="font-size: 10px; text-align: justify;">
+            I hereby declare that the particulars furnished above are true and correct to the best of my knowledge and
+            belief.
+            I also undertake to abide by the rules and regulations of the school as in force from time to time.
+            In the event of any information being found false or incorrect at any stage, my child's admission shall be
+            cancelled.
+        </p>
+
+        <div class="footer">
+            <div class="signature-box">
+                <div class="signature-line">Father's Signature</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line">Mother's Signature</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line">Principal's Signature</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
